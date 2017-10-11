@@ -59,5 +59,10 @@ public class Usuario extends Plantilla{
         return 2;
     }
 
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","Empresa"};
+    }
+
     
 }

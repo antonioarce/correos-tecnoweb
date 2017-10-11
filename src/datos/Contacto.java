@@ -69,6 +69,11 @@ public class Contacto extends Plantilla{
     public int cantidadAtributos() {
         return 3;
     }
+
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Idcliente","Idusuario","Fecha"};
+    }
     
     
 

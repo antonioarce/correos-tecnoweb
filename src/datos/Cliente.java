@@ -1,4 +1,9 @@
 package datos;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  * @author Antonio Arce
  * @version 1.0
@@ -66,17 +71,17 @@ public class Cliente extends Plantilla {
 
     @Override
     public String insertar() {
-        return "insert into cliente(id,direccion,web,vistos,publicaciones) values("+id+",'"+direccion+"','"+web+"',"+vistos+","+publicaciones+")";
+        return "insert into cliente(id,direccion,web,vistos,publicaciones) values(" + id + ",'" + direccion + "','" + web + "'," + vistos + "," + publicaciones + ")";
     }
 
     @Override
     public String actualizar() {
-        return "update cliente set direccion='"+direccion+"',web='"+web+"',vistos="+vistos+",publicaciones="+publicaciones+"  where id="+id;
+        return "update cliente set direccion='" + direccion + "',web='" + web + "',vistos=" + vistos + ",publicaciones=" + publicaciones + "  where id=" + id;
     }
 
     @Override
     public String eliminar() {
-        return "delete from cliente where id="+id;
+        return "delete from cliente where id=" + id;
     }
 
     @Override
@@ -88,7 +93,10 @@ public class Cliente extends Plantilla {
     public int cantidadAtributos() {
         return 5;
     }
-    
-    
+
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","Direccion","Web","Vistos","Publicaciones"};
+    }
 
 }

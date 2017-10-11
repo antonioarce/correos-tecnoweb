@@ -141,6 +141,11 @@ public class Multimedia extends Plantilla{
     public int cantidadAtributos() {
         return 9;
     }
+
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","Titulo","Contador","Comentarios","Sugerencias","Url","Tipo","Fecha","Hora","Idcliente"};
+    }
     
     
 

@@ -19,6 +19,7 @@ import datos.Multimedia;
 import datos.Persona;
 import datos.Sugerencia;
 import datos.Usuario;
+import core.utilidades.Herramientas;
 /**
  *
  * @author Antonio Arce
@@ -69,12 +70,14 @@ public class Tecnoweb {
        // video.guardar();
         //foto.guardar();
         
-        Comentario comen= new Comentario(1, "todo mal", new Date(117, 5, 5), new Time(11, 15, 11), 2, 1);
+        /*Comentario comen= new Comentario(1, "todo mal", new Date(117, 5, 5), new Time(11, 15, 11), 2, 1);
         comen.modificar();
         Sugerencia suge= new Sugerencia(1, 2, 3, "hola 3", new Date(117,6, 16), new Time(16, 16, 0), 2);
-        suge.modificar();
+        suge.modificar();*/
         /*comen.guardar();
         suge.guardar();*/
+        System.out.println(Herramientas.dibujarTabla((new Persona()).listarTodos()));
+        //Herramientas.dibujarTabla((new Persona()).listarTodos());
     }
     
     

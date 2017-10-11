@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +27,7 @@ public abstract class Plantilla {
     public abstract String eliminar();
     public abstract String listar();
     public abstract int cantidadAtributos();
+    public abstract Object[] columnas();
     
     
     private boolean consultar(String consulta){
@@ -52,21 +54,22 @@ public abstract class Plantilla {
         return consultar(eliminar());
     }
     
-    public List<Object> listarTodos(){
+    public DefaultTableModel listarTodos(){
         List<Object> lista = new ArrayList<>();
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columnas());
         try {
             Connection con = Conexion.getConnection();
             Statement consulta = con.createStatement();
             ResultSet resultado = consulta.executeQuery(listar());
             while (resultado.next()) {                
-                ArrayList<Object> obj = new ArrayList<>();
+                Object[] obj = new Object[cantidadAtributos()];
                 for (int i = 1; i <= cantidadAtributos(); i++) {
-                    obj.add(resultado.getObject(i));
+                    obj[i-1] = resultado.getObject(i);
                 }
-                lista.add(obj);
+                model.addRow(obj);
             }
-            consulta.close();
-            return lista;
+            return model;
             
         } catch (SQLException e) {
             return null;

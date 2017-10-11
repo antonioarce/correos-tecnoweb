@@ -110,6 +110,11 @@ public class Sugerencia extends Plantilla{
     public int cantidadAtributos() {
         return 7;
     }
+
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","Idsugeridor","Idreceptor","Descripcion","Fecha","Hora","Idmultimedia"};
+    }
     
     
 

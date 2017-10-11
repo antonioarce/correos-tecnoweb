@@ -78,6 +78,12 @@ public class Datosprincipales extends Plantilla {
     public int cantidadAtributos() {
         return 4;
     }
+
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","Titulo","Descripcion","Idcliente"};
+        
+    }
     
     
 

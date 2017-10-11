@@ -102,5 +102,10 @@ public class Comentario extends Plantilla{
         return 6;
     }
 
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","Descripcion","Fecha","Hora","Idpersona","Idmultimedia"};
+    }
+
     
 }

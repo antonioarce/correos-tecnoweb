@@ -154,6 +154,11 @@ public class Persona extends Plantilla{
     public int cantidadAtributos() {
         return 10;
     }
+
+    @Override
+    public Object[] columnas() {
+        return new Object[]{"Id","NombreCompleto","Email","Password","AuthKey","AccessToken","Avatar","Celular","Tipo","Genero"};
+    }
     
     
 
