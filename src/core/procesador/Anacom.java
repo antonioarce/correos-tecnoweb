@@ -78,7 +78,7 @@ public class Anacom {
                     }
                     break;
                 case 4:
-                    Token token = LCC.estaEnTPC(AC);
+                    Token token = LCC.estaEnLCC(AC);
                     if (token != null) {
                         R = token;
                         return;
