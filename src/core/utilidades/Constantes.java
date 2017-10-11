@@ -13,9 +13,9 @@ public class Constantes {
 
     // Mail Server Vars
     public static final String MAIL_SERVER_HOST = "mail.ficct.uagrm.edu.bo";
-    public static final String MAIL_USER = "grupo01sc";
-    public static final String MAIL_PASSWORD = "grupo01grupo01";
-    public static final String MAIL_USERMAIL = "grupo01sc@ficct.uagrm.edu.bo";
+    public static final String MAIL_USER = "grupo08sa";
+    public static final String MAIL_PASSWORD = "grupo08grupo08";
+    public static final String MAIL_USERMAIL = "grupo08sa@ficct.uagrm.edu.bo";
     
     // Time for Server Request
     public static final int TIME_THREAD = 2; // Tiempo en segundos
