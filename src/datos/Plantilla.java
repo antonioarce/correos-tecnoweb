@@ -20,14 +20,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public abstract class Plantilla {
     
-    public Conexion conexion;
+    private Conexion conexion;
     
-    public abstract String insertar();
-    public abstract String actualizar();
-    public abstract String eliminar();
-    public abstract String listar();
-    public abstract int cantidadAtributos();
-    public abstract Object[] columnas();
+    protected abstract String insertar();
+    protected abstract String actualizar();
+    protected abstract String eliminar();
+    protected abstract String listar();
+    protected abstract int cantidadAtributos();
+    protected abstract Object[] columnas();
     
     
     private boolean consultar(String consulta){
