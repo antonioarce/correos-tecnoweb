@@ -67,7 +67,6 @@ public class Ayuda {
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
-            + "- id (Entero)\n"
             + "- direccion (String con Comillas Dobles)\n"
             + "- web (String con Comillas Dobles)\n"
             + "\n"
@@ -114,7 +113,7 @@ public class Ayuda {
             + "descripcion, idMultimedia, idPersona";
     public static final String HELP_ELIMINARCOMENTARIO = "Eliminar Comentario!!!\n"
             + "\n"
-            + "Lo que hace el siguiente comando es Eliminar a un cliente registrados en el sistema,\n"
+            + "Lo que hace el siguiente comando es eliminar un comentario registrado en el sistema,\n"
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
@@ -201,7 +200,7 @@ public class Ayuda {
             + "- idcliente (Entero)\n";
     public static final String HELP_MODIFICARMULTIMEDIA = "Modificar Multimedia!!!\n"
             + "\n"
-            + "Lo que hace el siguiente comando es modificar un dato principal del cliente en el sistema.\n"
+            + "Lo que hace el siguiente comando es modificar una publicidad multimedia en el sistema.\n"
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
@@ -227,32 +226,35 @@ public class Ayuda {
             + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
             + "no es necesario enviar ningun parametros";
     
-    /* esto es pal commit
-    public static final String HELP_INSERTARMULTIMEDIA = "Insertar Multimedia!!!\n"
+
+    public static final String HELP_INSERTARPERSONA = "Insertar Persona!!!\n"
             + "\n"
-            + "Lo que hace el siguiente comando es insertar a un archivo multimedia del cliente en el sistema.\n"
+            + "Lo que hace el siguiente comando es insertar a un registro de los datos de la persona en el sistema.\n"
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
-            + "- titulo (String con Comillas Dobles)\n"
-            + "- tipo (Entero 1 si es foto 2 si es video)\n"
-            + "- idcliente (Entero)\n";
-    public static final String HELP_MODIFICARMULTIMEDIA = "Modificar Multimedia!!!\n"
+            + "- nombre completo (String con Comillas Dobles)\n"
+            + "- email (String con Comillas Dobles)\n"
+            + "- password (String con Comillas Dobles)\n"
+            + "- avatar 'imagen de perfil' (String con Comillas Dobles)\n"
+            + "- celular (Entero)\n"
+            + "- tipo (Entero 1 Trabajador'Personas que publican sus habilidades' 2 Empleador'Personas que buscan a personal trabajador ')\n"
+            + "- genero (Entero 1 Masculino 2 Femenino)\n";
+    public static final String HELP_MODIFICARPERSONA = "Modificar Persona!!!\n"
             + "\n"
-            + "Lo que hace el siguiente comando es modificar un dato principal del cliente en el sistema.\n"
+            + "Lo que hace el siguiente comando es modificar los dato de la persona en el sistema.\n"
             + "\n"
-            + "PARAMETROS:\n" 
+            + "PARAMETROS:\n"
             + "\n"
-            + "- titulo (String con Comillas Dobles)\n"
-            + "- tipo (Entero 1 si es foto 2 si es video)\n"
-            + "- idcliente (Entero)\n"
+            + "- nombre completo (String con Comillas Dobles)\n"
+            + "- email (String con Comillas Dobles)\n"
+            + "- password (String con Comillas Dobles)\n"
+            + "- avatar 'imagen de perfil' (String con Comillas Dobles)\n"
+            + "- celular (Entero)\n"
+            + "- genero (Entero 1 Masculino 2 Femenino)\n";
+    public static final String HELP_ELIMINARPERSONA = "Eliminar Persona!!!\n"
             + "\n"
-            + "OPCIONALES: (Usar guion bajo \"_\" para decir no cambiar)\n"
-            + "\n"
-            + "titulo, descripcion, idcliente";
-    public static final String HELP_ELIMINARMULTIMEDIA = "Eliminar Multimedia!!!\n"
-            + "\n"
-            + "Lo que hace el siguiente comando es Eliminar a un multimedia registrados en el sistema,\n"
+            + "Lo que hace el siguiente comando es Eliminar a una persona registrado en el sistema,\n"
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
@@ -260,8 +262,75 @@ public class Ayuda {
             + "Mensaje:\n "
             + "\n"
             + "Eliminacion exitosa.";
-    public static final String HELP_LISTARMULTIMEDIA = "Lista De Registros!!!\n"
+    public static final String HELP_LISTARPERSONA = "Lista De Registros!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
-            + "no es necesario enviar ningun parametros";*/
+            + "no es necesario enviar ningun parametros";
+    
+    
+    public static final String HELP_INSERTARSUGERENCIA = "Insertar Sugerencia!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es registrar una sugerencia con respecto a una publicacion multimedia en el sistema.\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- idsugeridor (Entero)\n"
+            + "- idreceptor (Entero)\n"
+            + "- descripcion (String con Comillas Dobles)\n"
+            + "- idmultimedia (Entero)\n";
+    public static final String HELP_MODIFICARSUGERENCIA = "Modificar Sugerencia!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es modificar una sugerencia en el sistema.\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- idsugeridor (Entero)\n"
+            + "- idreceptor (Entero)\n"
+            + "- descripcion (String con Comillas Dobles)\n"
+            + "- idmultimedia (Entero)\n";
+    public static final String HELP_ELIMINARSUGERENCIA = "Eliminar Sugerencia!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es Eliminar a una sugerencia registrado en el sistema,\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- id (Entero)\n"
+            + "Mensaje:\n "
+            + "\n"
+            + "Eliminacion exitosa.";
+    public static final String HELP_LISTARSUGERENCIA = "Lista De Registros!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
+            + "no es necesario enviar ningun parametros";
+    
+    
+    public static final String HELP_INSERTARUSUARIO = "Insertar Usuario!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es registrar un usuario en el sistema.\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- id (Entero)\n"
+            + "- empresa (String con Comillas Dobles)\n";
+    public static final String HELP_MODIFICARUSUARIO = "Modificar Usuario!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es modificar un usuario en el sistema.\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- empresa (String con Comillas Dobles)\n";
+    public static final String HELP_ELIMINARUSUARIO = "Eliminar Usuario!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es Eliminar a un usuario registrados en el sistema,\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- id (Entero)\n"
+            + "Mensaje:\n "
+            + "\n"
+            + "Eliminacion exitosa.";
+    public static final String HELP_LISTARUSUARIO = "Lista De Registros!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
+            + "no es necesario enviar ningun parametros";
 }
