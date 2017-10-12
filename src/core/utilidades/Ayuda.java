@@ -227,7 +227,7 @@ public class Ayuda {
             + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
             + "no es necesario enviar ningun parametros";
     
-    /*
+    /* esto es pal commit
     public static final String HELP_INSERTARMULTIMEDIA = "Insertar Multimedia!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es insertar a un archivo multimedia del cliente en el sistema.\n"
