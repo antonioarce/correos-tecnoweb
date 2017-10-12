@@ -241,7 +241,7 @@ public class Ayuda {
             + "\n"
             + "Lo que hace el siguiente comando es modificar un dato principal del cliente en el sistema.\n"
             + "\n"
-            + "PARAMETROS:\n"
+            + "PARAMETROS:\n" 
             + "\n"
             + "- titulo (String con Comillas Dobles)\n"
             + "- tipo (Entero 1 si es foto 2 si es video)\n"
