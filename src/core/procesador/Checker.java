@@ -11,16 +11,16 @@ package core.procesador;
  */
 public class Checker {
 
-    private Anacom analex;
+    private Anacom anacom;
     public boolean errorFlag;
 
-    public Checker(Anacom analex) {
-        this.analex = analex;
+    public Checker(Anacom anacom) {
+        this.anacom = anacom;
     }
 
     public void Expresion() {
         this.errorFlag = false;
-        if (analex.Preanalisis().getNombre() == Token.HELP) {
+        if (anacom.Preanalisis().getNombre() == Token.HELP) {
             match(Token.HELP);
         } else {
             match(Token.FUNC);
@@ -29,11 +29,11 @@ public class Checker {
     }
 
     public void acomp() {
-        if (analex.Preanalisis().getNombre() == Token.CA) {
+        if (anacom.Preanalisis().getNombre() == Token.CA) {
             match(Token.CA);
             parametros();
             match(Token.CC);
-        } else if (analex.Preanalisis().getNombre() == Token.HELP) {
+        } else if (anacom.Preanalisis().getNombre() == Token.HELP) {
             match(Token.HELP);
         }
     }
@@ -44,7 +44,7 @@ public class Checker {
     }
 
     public void param() {
-        switch (analex.Preanalisis().getNombre()) {
+        switch (anacom.Preanalisis().getNombre()) {
             case Token.STRING:
                 match(Token.STRING);
                 break;
@@ -64,7 +64,7 @@ public class Checker {
     }
 
     public void masparam() {
-        if (analex.Preanalisis().getNombre() == Token.COMA) {
+        if (anacom.Preanalisis().getNombre() == Token.COMA) {
             match(Token.COMA);
             param();
             masparam();
@@ -72,15 +72,15 @@ public class Checker {
     }
 
     public void match(int token) {
-        if (analex.Preanalisis().getNombre() == token) {
-            analex.Avanzar();
+        if (anacom.Preanalisis().getNombre() == token) {
+            anacom.Avanzar();
         } else {
-            System.out.println("Error en Parser al procesar Token!");
+            System.out.println("Error en Checker al procesar Token!");
             this.errorFlag = true;
         }
     }
 
     public void Init() {
-        analex.Init();
+        anacom.Init();
     }
 }
