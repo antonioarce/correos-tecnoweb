@@ -143,7 +143,7 @@ public class Multimedia extends Plantilla{
 
     @Override
     public int cantidadAtributos() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -151,6 +151,4 @@ public class Multimedia extends Plantilla{
         return new Object[]{"Id","Titulo","Contador","Comentarios","Sugerencias","Url","Tipo","Fecha","Hora","Idcliente"};
     }
     
-    
-
 }

@@ -7,9 +7,7 @@ public class Persona extends Plantilla{
     private String nombrecompleto;
     private String email;
     private String password;
-    private String authkey;
-    private String accesstoken;
-    private String avatar;
+
     private int celular;
     private int tipo;
     private int genero;
@@ -18,14 +16,12 @@ public class Persona extends Plantilla{
 
     }
 
-    public Persona(int id, String nombrecompleto, String email, String password, String authkey, String accesstoken, String avatar, int celular, int tipo, int genero) {
+    public Persona(int id, String nombrecompleto, String email, String password,int celular, int tipo, int genero) {
         this.id = id;
         this.nombrecompleto = nombrecompleto;
         this.email = email;
         this.password = password;
-        this.authkey = authkey;
-        this.accesstoken = accesstoken;
-        this.avatar = avatar;
+
         this.celular = celular;
         this.tipo = tipo;
         this.genero = genero;
@@ -63,30 +59,6 @@ public class Persona extends Plantilla{
         this.password = password;
     }
 
-    public String getAuthkey() {
-        return authkey;
-    }
-
-    public void setAuthkey(String authkey) {
-        this.authkey = authkey;
-    }
-
-    public String getAccesstoken() {
-        return accesstoken;
-    }
-
-    public void setAccesstoken(String accesstoken) {
-        this.accesstoken = accesstoken;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     public int getCelular() {
         return celular;
     }
@@ -116,12 +88,9 @@ public class Persona extends Plantilla{
     }
     @Override
     public String insertar() {
-        return "insert into persona(nombrecompleto,email,password,authkey,accesstoken,avatar,celular,tipo,genero) values('"+nombrecompleto+"','"
+        return "insert into persona(nombrecompleto,email,password,celular,tipo,genero) values('"+nombrecompleto+"','"
                 +email+"','"+
-                password+"','"
-                +authkey+"','"
-                +accesstoken+"','"
-                +avatar+"',"
+                password+"',"              
                 +celular+","
                 +tipo+","
                 +genero
@@ -134,9 +103,6 @@ public class Persona extends Plantilla{
                 +"nombrecompleto='"+nombrecompleto+"',"
                 +"email='"+email+"',"
                 +"password='"+password+"',"
-                +"authkey='"+authkey+"',"
-                +"accesstoken='"+accesstoken+"',"
-                +"avatar='"+avatar+"',"
                 +"celular="+celular+","
                 +"tipo="+tipo+","
                 +"genero="+genero+" "
@@ -155,12 +121,12 @@ public class Persona extends Plantilla{
 
     @Override
     public int cantidadAtributos() {
-        return 10;
+        return 7;
     }
 
     @Override
     public Object[] columnas() {
-        return new Object[]{"Id","NombreCompleto","Email","Password","AuthKey","AccessToken","Avatar","Celular","Tipo","Genero"};
+        return new Object[]{"Id","NombreCompleto","Email","Password","Celular","Tipo","Genero"};
     }
     
     

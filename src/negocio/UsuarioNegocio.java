@@ -24,7 +24,7 @@ public class UsuarioNegocio {
     }
 
     public UsuarioNegocio(String nombre, String email,String password, int celular,int tipo,int genero,String empresa) {
-        this.persona = new Persona(0, nombre, email, password, "alsiduhfsdf5g489er7g9re87", "asd95g+9sadg+9weg9+weq4hb+whyj65", "", celular, tipo, genero);
+        this.persona = new Persona(0, nombre, email, password,celular, tipo, genero);
         this.usuario = new Usuario(empresa, 0);
     }
 
@@ -46,6 +46,7 @@ public class UsuarioNegocio {
     
     public boolean guardar(){
         if (persona.guardar()) {
+            persona.setAutoincrement();
             usuario.setId(persona.getId());
             if (usuario.guardar()) {
                 return true;

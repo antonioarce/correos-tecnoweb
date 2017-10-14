@@ -5,6 +5,7 @@
  */
 package Software;
 import negocio.ClienteNegocio;
+import negocio.UsuarioNegocio;
 
 /**
  *
@@ -14,10 +15,15 @@ public class main {
     public static void main(String[] args) {
         software sof=new software();
         //sof.processMessage("SUBJECT:[FUNC][INSERTARMULTIMEDIA]['hola','www.facebooc.com',1,1]");
-        sof.processMessage("subject:INSERTARMULTIMEDIA[\"hola\",\"www.facebooc.com\",2,1]");
+        //sof.processMessage("subject:INSERTARMULTIMEDIA[\"hola\",\"www.facebooc.com\",2,1]");
+//        ClienteNegocio cliente = new ClienteNegocio("Juan Perez", "jlst.arce@gmail.com", "123456", 778474774, 1, 1, "", "");
+//        if (cliente.insertar()) {
+//            System.out.println("ok - " + cliente.getPersona().getId());
+//        }
+//        UsuarioNegocio user = new UsuarioNegocio("Maria", "Cabrera", "123456", 778457444, 2, 2, "Terracor");
+//        if (user.guardar()) {
+//            System.out.println("ok - " + user.getPersona().getId());
+//        }
         
-        /*ClienteNegocio cliente = new ClienteNegocio("CLiente1", "jlst.arce@gmail.com", "1234456", 77813724, 1, 1, "Av heroes del chaco", "");
-        cliente.getCliente().setId(2);
-        cliente.insertar();*/
     }
 }
