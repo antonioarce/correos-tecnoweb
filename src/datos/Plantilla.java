@@ -35,9 +35,15 @@ public abstract class Plantilla {
             Connection conn = Conexion.getConnection();
             PreparedStatement st = conn.prepareStatement(consulta);         
             boolean resultado = !st.execute();
+            if (resultado) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+            }
             st.close();
             return resultado;
         } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
             return false;
         }
     }

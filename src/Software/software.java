@@ -95,7 +95,7 @@ public class software {
         int idcliente = anacon.Preanalisis().getAtributo();
         MultimediaNegocio multimediaNegocio = new MultimediaNegocio(titulo, url, tipo, idcliente);
         multimediaNegocio.guardar();
-        //ClienteSMTP.sendMail(correoDest, "Registrar Alumno", "Registro realizado Correctamente");
+        ClienteSMTP.sendMail(correoDest, "Registrar Alumno", "Registro realizado Correctamente");
     }
 
     private void modificarMultimedia(Anacom anacom, String destinatario) {
