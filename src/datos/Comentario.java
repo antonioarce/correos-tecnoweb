@@ -28,6 +28,10 @@ public class Comentario extends Plantilla{
         this.idpersona = idpersona;
         this.idmultimedia = idmultimedia;
     }
+    
+    public void setAutoincrement(){
+        id = autoincrement;
+    }
 
     public int getId() {
         return id;

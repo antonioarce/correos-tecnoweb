@@ -45,6 +45,7 @@ public class ClienteNegocio {
     
     public boolean insertar(){
         if (persona.guardar()) {
+            persona.setAutoincrement();
             cliente.setId(persona.getId());
             if (cliente.guardar()) {
                 return true;

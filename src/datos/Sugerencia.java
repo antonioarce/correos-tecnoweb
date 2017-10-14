@@ -37,6 +37,10 @@ public class Sugerencia extends Plantilla{
     public void setId(int id) {
         this.id = id;
     }
+    
+    public void setAutoincrement(){
+        id = autoincrement;
+    }
 
     public int getIdsugeridor() {
         return idsugeridor;

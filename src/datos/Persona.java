@@ -111,6 +111,9 @@ public class Persona extends Plantilla{
         this.genero = genero;
     }
 
+    public void setAutoincrement(){
+        id = autoincrement;
+    }
     @Override
     public String insertar() {
         return "insert into persona(nombrecompleto,email,password,authkey,accesstoken,avatar,celular,tipo,genero) values('"+nombrecompleto+"','"

@@ -21,6 +21,10 @@ public class Datosprincipales extends Plantilla {
         this.descripcion = descripcion;
         this.idcliente = idcliente;
     }
+    
+    public void setAutoincrement(){
+        id = autoincrement;
+    }
 
     public int getId() {
         return id;

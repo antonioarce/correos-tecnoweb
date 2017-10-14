@@ -36,6 +36,10 @@ public class Multimedia extends Plantilla{
         this.hora = hora;
         this.idcliente = idcliente;
     }
+    
+    public void setAutoincrement(){
+        id = autoincrement;
+    }
 
     public int getId() {
         return id;

@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public abstract class Plantilla {
     
     private Conexion conexion;
+    protected int autoincrement;
     
     protected abstract String insertar();
     protected abstract String actualizar();
@@ -33,12 +34,16 @@ public abstract class Plantilla {
     private boolean consultar(String consulta){
         try {
             Connection conn = Conexion.getConnection();
-            PreparedStatement st = conn.prepareStatement(consulta);         
+            PreparedStatement st = conn.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);              
             boolean resultado = !st.execute();
             if (resultado) {
                 System.out.println(consulta + " - REALIZADA CON EXITO");
             }else{
                 System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+            }
+            ResultSet auto = st.getGeneratedKeys();
+            if (auto.next()) {
+                autoincrement = auto.getInt(1);
             }
             st.close();
             return resultado;
