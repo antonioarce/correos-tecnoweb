@@ -1,6 +1,11 @@
 package datos;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Antonio Arce
@@ -121,6 +126,37 @@ public class Multimedia extends Plantilla{
         this.hora = hora;
     }
 
+    public boolean buscar(){
+        String consulta = "select * from multimedia where id = "+id;
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement st = conn.prepareStatement(consulta);    
+            ResultSet rs = st.executeQuery();
+            boolean sw = true;
+            if (rs.next()) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+                this.id = rs.getInt("id");
+                this.titulo = rs.getString("direccion");
+                this.url = rs.getString("web");
+                this.contador = rs.getInt("vistos");
+                this.comentarios = rs.getInt("publicaciones");
+                this.sugerencias = rs.getInt("publicaciones");
+                this.fecha = rs.getDate("fecha");
+                this.hora=rs.getTime("hora");
+                this.idcliente = rs.getInt("idcliente");
+                this.tipo = rs.getInt("tipo");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+                sw = false;
+            }              
+            st.close();
+            return sw;
+        } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
+            return false;
+        }
+    }
+    
     @Override
     public String insertar() {
         return "insert into multimedia(titulo, contador, comentarios, sugerencias, url, tipo, fecha,hora, idcliente) values('"+titulo+"',"+contador+","+comentarios+","+sugerencias+",'"+url+"',"+tipo+",'"+fecha.toString()+"','"+hora.toString()+"',"+idcliente+")";
@@ -138,7 +174,7 @@ public class Multimedia extends Plantilla{
 
     @Override
     public String listar() {
-        return "select * from multimedia";
+        return "select * from multimedia where idcliente = "+idcliente;
     }
 
     @Override

@@ -31,6 +31,10 @@ public class DatosprincipalesNegocio {
         this.datos = datos;
     }
     
+    public boolean buscar(){
+        return datos.buscar();
+    }
+    
     public boolean guardar(){
         return datos.guardar();
     }

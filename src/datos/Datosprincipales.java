@@ -1,4 +1,10 @@
 package datos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Antonio Arce
  * @version 1.0
@@ -57,7 +63,30 @@ public class Datosprincipales extends Plantilla {
     public void setIdcliente(int idcliente) {
         this.idcliente = idcliente;
     }
-
+    public boolean buscar(){
+        String consulta = "select * from datosprincipales where id = "+id;
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement st = conn.prepareStatement(consulta);    
+            ResultSet rs = st.executeQuery();
+            boolean sw = true;
+            if (rs.next()) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+                this.id = rs.getInt("id");
+                this.titulo = rs.getString("titulo");
+                this.descripcion = rs.getString("descripcion");
+                this.idcliente = rs.getInt("idcliente");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+                sw = false;
+            }              
+            st.close();
+            return sw;
+        } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
+            return false;
+        }
+    }
     @Override
     public String insertar() {
         return "insert into datosprincipales(titulo, descripcion, idcliente) values('"+titulo + "', '" + descripcion + "', " + idcliente+")";
@@ -75,7 +104,7 @@ public class Datosprincipales extends Plantilla {
 
     @Override
     public String listar() {
-        return "select * from datosprincipales";
+        return "select * from datosprincipales where idcliente = " + idcliente;
     }
 
     @Override

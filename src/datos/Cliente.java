@@ -1,5 +1,9 @@
 package datos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -67,6 +71,32 @@ public class Cliente extends Plantilla {
 
     public void setPublicaciones(int publicaciones) {
         this.publicaciones = publicaciones;
+    }
+    
+    public boolean buscar(){
+        String consulta = "select * from cliente where id = "+id;
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement st = conn.prepareStatement(consulta);    
+            ResultSet rs = st.executeQuery();
+            boolean sw = true;
+            if (rs.next()) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+                this.id = rs.getInt("id");
+                this.direccion = rs.getString("direccion");
+                this.web = rs.getString("web");
+                this.vistos = rs.getInt("vistos");
+                this.publicaciones = rs.getInt("publicaciones");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+                sw = false;
+            }              
+            st.close();
+            return sw;
+        } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
+            return false;
+        }
     }
 
     @Override

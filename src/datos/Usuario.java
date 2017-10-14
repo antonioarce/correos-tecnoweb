@@ -1,4 +1,10 @@
 package datos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Antonio Arce
  * @version 1.0
@@ -34,6 +40,30 @@ public class Usuario extends Plantilla{
         this.id = id;
     }
 
+    public boolean buscar(){
+        String consulta = "select * from usuario where id = "+id;
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement st = conn.prepareStatement(consulta);    
+            ResultSet rs = st.executeQuery();
+            boolean sw = true;
+            if (rs.next()) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+                this.id = rs.getInt("id");
+                this.empresa = rs.getString("empresa");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+                sw = false;
+            }              
+            st.close();
+            return sw;
+        } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
+            return false;
+        }
+    }
+    
+    
     @Override
     public String insertar() {
         return "insert into usuario(id, empresa) values("+id+",'"+empresa+"')";

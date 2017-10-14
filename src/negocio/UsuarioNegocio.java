@@ -57,6 +57,16 @@ public class UsuarioNegocio {
         return false;
     }
     
+    public boolean buscarPorCorreo(){
+        if (persona.buscarPorCorreo()) {
+            usuario.setId(persona.getId());
+            if (usuario.buscar()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public boolean modificar(){
         return persona.modificar() && usuario.modificar();
     }

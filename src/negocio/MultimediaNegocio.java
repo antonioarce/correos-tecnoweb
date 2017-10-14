@@ -34,6 +34,10 @@ public class MultimediaNegocio {
         this.multimedia = multimedia;
     }
     
+    public boolean buscar(){
+        return multimedia.buscar();
+    }
+    
     public boolean guardar(){
         return multimedia.guardar();
     }

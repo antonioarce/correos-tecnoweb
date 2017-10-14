@@ -62,7 +62,7 @@ public class Contacto extends Plantilla{
 
     @Override
     public String listar() {
-        return "select * from contacto";
+        return "select * from contacto where idusuario = " + idusuario;
     }
 
     @Override

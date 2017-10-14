@@ -46,6 +46,10 @@ public class ComentarioNegocio {
         return comentario.borrar();
     }
     
+    public boolean buscar(){
+        return comentario.buscar();
+    }
+    
     public DefaultTableModel listar(){
         return comentario.listarTodos();
     }

@@ -1,5 +1,9 @@
 package datos;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
 
 /**
@@ -81,6 +85,33 @@ public class Comentario extends Plantilla{
         this.idmultimedia = idmultimedia;
     }
 
+    public boolean buscar(){
+        String consulta = "select * from comentario where id = "+id;
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement st = conn.prepareStatement(consulta);    
+            ResultSet rs = st.executeQuery();
+            boolean sw = true;
+            if (rs.next()) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+                this.id = rs.getInt("id");
+                this.descripcion = rs.getString("descripcion");
+                this.fecha = rs.getDate("fecha");
+                this.hora=rs.getTime("hora");
+                this.idpersona = rs.getInt("idpersona");
+                this.idmultimedia = rs.getInt("idmultimedia");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+                sw = false;
+            }              
+            st.close();
+            return sw;
+        } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
+            return false;
+        }
+    }
+    
     @Override
     public String insertar() {
         return "insert into comentario(descripcion,fecha,hora,idpersona,idmultimedia) values('"+descripcion+"','"+fecha.toString()+"','"+hora.toString()+"',"+idpersona+","+idmultimedia+")";
@@ -93,12 +124,12 @@ public class Comentario extends Plantilla{
 
     @Override
     public String eliminar() {
-        return "delete from multimedia where id="+id;
+        return "delete from comentario where id="+id;
     }
 
     @Override
     public String listar() {
-        return "select * from multimedia";
+        return "select * from comentario where idmultimedia = " + idmultimedia;
     }
 
     @Override
@@ -108,7 +139,7 @@ public class Comentario extends Plantilla{
 
     @Override
     public Object[] columnas() {
-        return new Object[]{"Id","Descripcion","Fecha","Hora","Idpersona","Idmultimedia"};
+        return new Object[]{"Id","Descripcion","Fecha","Hora","Idmultimedia","Idpersona"};
     }
 
     
