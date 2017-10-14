@@ -89,6 +89,34 @@ public class Persona extends Plantilla{
         this.genero = genero;
     }
     
+    public boolean buscar(){
+        String consulta = "select * from persona where id = " + id;
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement st = conn.prepareStatement(consulta);    
+            ResultSet rs = st.executeQuery();
+            boolean sw = true;
+            if (rs.next()) {
+                System.out.println(consulta + " - REALIZADA CON EXITO");
+                this.id = rs.getInt("id");
+                this.nombrecompleto = rs.getString("nombrecompleto");
+                this.email = rs.getString("email");
+                this.password = rs.getString("password");
+                this.celular = rs.getInt("celular");
+                this.tipo = rs.getInt("tipo");
+                this.genero = rs.getInt("genero");
+            }else{
+                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
+                sw = false;
+            }              
+            st.close();
+            return sw;
+        } catch (SQLException e) {
+            System.out.println(consulta + " - ERROR - "+e.getMessage());
+            return false;
+        }
+    }
+    
     public boolean buscarPorCorreo(){
         String consulta = "select * from persona where email = '"+email+"'";
         try {

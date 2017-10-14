@@ -56,6 +56,16 @@ public class ClienteNegocio {
         return false;
     }
     
+    public boolean buscar(){
+        if (persona.buscar()) {
+            cliente.setId(persona.getId());
+            if (cliente.buscar()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public boolean buscarPorCorreo(){
         if (persona.buscarPorCorreo()) {
             cliente.setId(persona.getId());

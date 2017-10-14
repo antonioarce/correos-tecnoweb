@@ -49,7 +49,7 @@ public class main {
 //        cn.buscar();
         ContactoNegocio mn = new ContactoNegocio();
         mn.getContacto().setIdusuario(3);
-        DefaultTableModel lista = mn.listar();
+        DefaultTableModel lista = mn.listarContactos();
         System.out.println(core.utilidades.Herramientas.dibujarTabla(lista));
     }
 }
