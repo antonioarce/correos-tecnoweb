@@ -17,7 +17,6 @@ public class Ayuda {
             + "INSERTARCLIENTE\n"
             + "MODIFICARCLIENTE\n"
             + "ELIMINARCLIENTE\n"
-            + "LISTARCLIENTE\n"
             
             + "INSERTARCOMENTARIO\n"
             + "MODIFICARCOMENTARIO\n"
@@ -25,7 +24,6 @@ public class Ayuda {
             + "LISTARCOMENTARIO\n"
             
             + "INSERTARCONTACTO\n"
-            + "MODIFICARCONTACTO\n"
             + "ELIMINARCONTACTO\n"
             + "LISTARCONTACTO\n"
             
@@ -42,17 +40,12 @@ public class Ayuda {
             + "INSERTARPERSONA\n"
             + "MODIFICARPERSONA\n"
             + "ELIMINARPERSONA\n"
-            + "LISTARPERSONA\n"
             
             + "INSERTARSUGERENCIA\n"
-            + "MODIFICARSUGERENCIA\n"
-            + "ELIMINARSUGERENCIA\n"
-            + "LISTARSUGERENCIA\n"
             
             + "INSERTARUSUARIO\n"
             + "MODIFICARUSUARIO\n"
-            + "ELIMINARUSUARIO\n"
-            + "LISTARUSUARIO\n";
+            + "ELIMINARUSUARIO\n";
     public static final String HELP_INSERTARCLIENTE = "Insertar Cliente!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es registrar a un cliente en el sistema.\n"
@@ -339,8 +332,6 @@ public class Ayuda {
             + "Lo que hace el siguiente comando es Eliminar a un usuario registrados en el sistema,\n"
             + "\n"
             + "PARAMETROS:\n"
-            + "\n"
-            + "- id (Entero)\n"
             + "Mensaje:\n "
             + "\n"
             + "Eliminacion exitosa.";

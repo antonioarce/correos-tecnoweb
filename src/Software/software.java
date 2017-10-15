@@ -12,6 +12,7 @@ import core.procesador.Token;
 import core.protocolos.ClienteSMTP;
 import core.utilidades.Ayuda;
 import core.utilidades.Herramientas;
+import datos.Cliente;
 import datos.Comentario;
 import datos.Contacto;
 import datos.Datosprincipales;
@@ -137,25 +138,6 @@ public class software {
                 break;
         }
     }
-    
-   /* public void obtenerAlumnos(Analex analex, String correoDest) {
-        // Obtengo el Siguiente token
-        analex.Avanzar();
-        Token token = analex.Preanalisis();
-
-        // Reviso si no es ayuda
-        if (token.getNombre() == Token.HELP) {
-            // Mostrar ayuda de esa funcionalidad
-            // Enviar correo con la ayuda
-            ClienteSMTP.sendMail(correoDest, "Ayudas - Nueva Acropolis Mail", Helper.HELP_OBTENERALUMNOS);
-            return;
-        }
-
-        // Sino, ejecutar el comando
-        AlumnoNegocio alumnoNegocio = new AlumnoNegocio();
-        String message = Utils.dibujarTabla(alumnoNegocio.obtenerAlumnos());
-        ClienteSMTP.sendMail(correoDest, "Obtener Alumnos", message);
-    }*/
 
     private void registrarCliente(Anacom anacom, String correoDest) {
         // Obtengo el Siguiente token
@@ -195,7 +177,6 @@ public class software {
         String web = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
         ClienteNegocio clienteNegocio = new ClienteNegocio(nombre, email, password, celular, tipo, genero, direccion, web);
         clienteNegocio.insertar();
-        //Cliente cliente=;
         ClienteSMTP.sendMail(correoDest, "Registrar Cliente", "Registro realizado Correctamente su codigo es "+clienteNegocio.getCliente().getId());
     }
 
@@ -268,8 +249,28 @@ public class software {
         ClienteSMTP.sendMail(correoDest, "Modificar Cliente", "Modificacion realizada Correctamente");
     }
 
-    private void eliminarCliente(Anacom anacom, String destinatario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void eliminarCliente(Anacom anacom, String correoDest) {
+        // Obtengo el Siguiente token
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_ELIMINARCLIENTE);
+            return;
+        }
+        // Sino, ejecutar el comando
+        ClienteNegocio ClienteNegocio = new ClienteNegocio();
+        Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
+        persona.buscarPorCorreo();
+        ClienteNegocio.setPersona(persona);
+        ClienteNegocio.setCliente(new Cliente(persona.getId(), correoDest, correoDest, 0, 0));
+        if (ClienteNegocio.eliminar()) {
+            ClienteSMTP.sendMail(correoDest, "Eliminar Cliente", "Ocurrio un problema al intentar eliminar o usted no esta registrado");
+            return;
+        }
+        ClienteSMTP.sendMail(correoDest, "Eliminar Cliente", "Se elimino su cuenta");
     }
     
     
@@ -315,7 +316,7 @@ public class software {
         // Sino, ejecutar el comando
         // Revisar los GuionBajo
         //anacom.Avanzar();
-        //anacom.Avanzar();
+        anacom.Avanzar();
         int id = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? anacom.Preanalisis().getAtributo()
                 : -1;
@@ -350,8 +351,36 @@ public class software {
         ClienteSMTP.sendMail(correoDest, "Modificar Comentario", "Modificacion realizada Correctamente");
     }
 
-    private void eliminarComentario(Anacom anacom, String destinatario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void eliminarComentario(Anacom anacom, String correoDest) {
+        // Obtengo el Siguiente token
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_ELIMINARCOMENTARIO);
+            return;
+        }
+
+        // Sino, ejecutar el comando
+        ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
+        anacom.Avanzar();
+        int idComentario = anacom.Preanalisis().getAtributo();
+        Comentario comentario=new Comentario();
+        comentario.setId(idComentario);
+        Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
+        persona.buscarPorCorreo();
+        comentarioNegocio.setComentario(comentario);
+        
+        if (comentario.buscar()) {
+            if (!( comentario.getIdpersona()!=persona.getId() && !comentarioNegocio.eliminar())) {
+                ClienteSMTP.sendMail(correoDest, "Eliminar Comentario", "El comentario que quiere eliminar no le pertenece");
+                return;
+            }
+        }
+        ClienteSMTP.sendMail(correoDest, "Eliminar Comentario", "Se elimino el comentario");
     }
 
     private void listarComentario(Anacom anacom, String correoDest) {
@@ -425,7 +454,7 @@ public class software {
             ClienteSMTP.sendMail(correoDest, "Eliminar Contacto", "El contacto que quiere eliminar no le pertenece");
             return;
         }
-        ClienteSMTP.sendMail(correoDest, "Eliminar Contacto", "Se eliminado el contacto correcta");
+        ClienteSMTP.sendMail(correoDest, "Eliminar Contacto", "Se eliminado el contacto");
     }
     
     private void listarContacto(Anacom anacom, String correoDest) {
@@ -460,7 +489,7 @@ public class software {
         if (token.getNombre() == Token.HELP) {
             // Mostrar ayuda de esa funcionalidad
             // Enviar correo con la ayuda
-            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_INSERTARCOMENTARIO);
+            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_INSERTARDATOSPRINCIPALES);
             return;
         }
         // Sino, ejecutar el comando
@@ -494,7 +523,7 @@ public class software {
         // Sino, ejecutar el comando
         // Revisar los GuionBajo
         //anacom.Avanzar();
-        //anacom.Avanzar();
+        anacom.Avanzar();
         int id = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? anacom.Preanalisis().getAtributo()
                 : -1;
@@ -551,14 +580,33 @@ public class software {
         persona.buscarPorCorreo();
         datosprincipalesNegocio.setDatos(datosprincipales);
         if (!(!datosprincipales.buscar() && datosprincipales.getIdcliente()!=persona.getId() && !datosprincipalesNegocio.eliminar())) {
-            ClienteSMTP.sendMail(correoDest, "Eliminar Contacto", "El Dato Principal que quiere eliminar no le pertenece");
+            ClienteSMTP.sendMail(correoDest, "Eliminar Datos Principales", "El Dato Principal que quiere eliminar no le pertenece");
             return;
         }
         ClienteSMTP.sendMail(correoDest, "Eliminar Dato Principal", "Se eliminado el contacto correcta");
     }
 
-    private void listarDatosPrincipales(Anacom anacom, String destinatario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void listarDatosPrincipales(Anacom anacom, String correoDest) {
+        // Obtengo el Siguiente token
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_LISTARDATOSPRINCIPALES);
+            return;
+        }
+        // Sino, ejecutar el comando
+        Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
+        persona.buscarPorCorreo();
+        Datosprincipales datosprincipales=new Datosprincipales();
+        datosprincipales.setIdcliente(persona.getId());
+        DatosprincipalesNegocio datosprincipalesNegocio = new DatosprincipalesNegocio();
+        datosprincipalesNegocio.setDatos(datosprincipales);
+        String message = Herramientas.dibujarTabla(datosprincipalesNegocio.listar());
+        ClienteSMTP.sendMail(correoDest, "Listar Datos Principales", message);
     }
 
     
@@ -607,7 +655,7 @@ public class software {
         // Sino, ejecutar el comando
         // Revisar los GuionBajo
         //anacom.Avanzar();
-        //anacom.Avanzar();
+        anacom.Avanzar();
         int id = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? anacom.Preanalisis().getAtributo()
                 : -1;
@@ -663,8 +711,35 @@ public class software {
         ClienteSMTP.sendMail(correoDest, "Listar Contacto", message);
     }
 
-    private void eliminarMultimedia(Anacom anacom, String destinatario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void eliminarMultimedia(Anacom anacom, String correoDest) {
+        // Obtengo el Siguiente token
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_ELIMINARMULTIMEDIA);
+            return;
+        }
+        // Sino, ejecutar el comando
+        MultimediaNegocio multimediaNegocio = new MultimediaNegocio();
+        anacom.Avanzar();
+        int id = anacom.Preanalisis().getAtributo();
+        Multimedia multimedia=new Multimedia();
+        multimedia.setId(id);
+        Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
+        persona.buscarPorCorreo();
+        multimediaNegocio.setMultimedia(multimedia);
+        
+        if (multimediaNegocio.buscar()) {
+            if (!(multimediaNegocio.getMultimedia().getIdcliente()!=persona.getId() && !multimediaNegocio.eliminar())) {
+                ClienteSMTP.sendMail(correoDest, "Eliminar Multimedia", "El contacto que quiere eliminar no le pertenece");
+                return;
+            }
+        }
+        ClienteSMTP.sendMail(correoDest, "Eliminar Multimedia", "Se eliminado la publicidad multimedia correctamente");
     }
     
     
@@ -694,7 +769,12 @@ public class software {
         int idmultimedia = anacom.Preanalisis().getAtributo();
         SugerenciaNegocio sugerenciaNegocio = new SugerenciaNegocio(idsugeridor, receptor, descripcion, idmultimedia);
         sugerenciaNegocio.guardar();
+        Persona persona=new Persona(receptor, correoDest, descripcion, correoDest, receptor, receptor, receptor);
+        persona.buscarPorCorreo();
+        Multimedia multimedia=new Multimedia(); multimedia.setId(idmultimedia);
+        multimedia.buscar();
         ClienteSMTP.sendMail(correoDest, "Registrar Sugerencia", "Registro realizado Correctamente");
+        ClienteSMTP.sendMail(correoDest, "Sugerencia", "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\n tenga usted un buen dia.");
     }
 
 
@@ -802,8 +882,28 @@ public class software {
         ClienteSMTP.sendMail(correoDest, "Modificar Usuario", "Modificacion realizada Correctamente");
     }
 
-    private void eliminarUsuario(Anacom anacom, String destinatario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void eliminarUsuario(Anacom anacom, String correoDest) {
+        // Obtengo el Siguiente token
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_ELIMINARUSUARIO);
+            return;
+        }
+        // Sino, ejecutar el comando
+        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
+        persona.buscarPorCorreo();
+        usuarioNegocio.setPersona(persona);
+        usuarioNegocio.setUsuario(new Usuario("", persona.getId()));
+        if (usuarioNegocio.eliminar()) {
+            ClienteSMTP.sendMail(correoDest, "Eliminar Usuario", "Ocurrio un problema al intentar eliminar o usted no esta registrado");
+            return;
+        }
+        ClienteSMTP.sendMail(correoDest, "Eliminar Usuario", "Se elimino su cuenta correcta");
     }
     
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Software;
+import datos.Cliente;
 import javax.swing.table.DefaultTableModel;
 import negocio.ClienteNegocio;
 import negocio.ComentarioNegocio;
@@ -19,9 +20,10 @@ import negocio.UsuarioNegocio;
  */
 public class main {
     public static void main(String[] args) {
-        //software sof=new software();
+        software sof=new software();
         //sof.processMessage("SUBJECT:[FUNC][INSERTARMULTIMEDIA]['hola','www.facebooc.com',1,1]");
-        //sof.processMessage("subject:INSERTARMULTIMEDIA[\"hola\",\"www.facebooc.com\",2,1]");
+        sof.processMessage("from: pablo.jpl93@gmail.com subject:MODIFICARCLIENTE[1,\"Pablo Puma Lima\",\"pablo.jpl93@gmail.com\",\"123456\",2,1,2,\"Las Lomas\",\"www.youtube.com\"]");
+        //ClienteNegocio cliente= new ClienteNegocio();
 //        ClienteNegocio cliente = new ClienteNegocio("Juan Perez", "jlst.arce@gmail.com", "123456", 778474774, 1, 1, "", "");
 //        if (cliente.insertar()) {
 //            System.out.println("ok - " + cliente.getPersona().getId());
@@ -47,9 +49,9 @@ public class main {
 //        ComentarioNegocio cn = new ComentarioNegocio();
 //        cn.getComentario().setId(1);
 //        cn.buscar();
-        ContactoNegocio mn = new ContactoNegocio();
+        /*ContactoNegocio mn = new ContactoNegocio();
         mn.getContacto().setIdusuario(3);
         DefaultTableModel lista = mn.listarContactos();
-        System.out.println(core.utilidades.Herramientas.dibujarTabla(lista));
+        System.out.println(core.utilidades.Herramientas.dibujarTabla(lista));*/
     }
 }
