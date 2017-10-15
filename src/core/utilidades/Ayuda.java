@@ -121,10 +121,12 @@ public class Ayuda {
             + "Mensaje:\n "
             + "\n"
             + "Eliminacion exitosa.";
-    public static final String HELP_LISTARCOMENTARIO = "Lista De Registros!!!\n"
+    public static final String HELP_LISTARCOMENTARIO = "Lista De Comentarios De Una Publicacion Multimedia!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
-            + "no es necesario enviar ningun parametros";
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- Codigo Multimedia (Entero)\n";
     
     
     public static final String HELP_INSERTARCONTACTO = "Insertar Contacto!!!\n"
@@ -141,7 +143,8 @@ public class Ayuda {
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
-            + "- id (Entero)\n"
+            + "- CodigoTrabajador (Entero)\n"
+            + "- CodigoEmpleador (Entero)\n"
             + "Mensaje:\n "
             + "\n"
             + "Eliminacion exitosa.";
