@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package Software;
+import core.utilidades.Ayuda;
 import datos.Cliente;
+import datos.Persona;
 import javax.swing.table.DefaultTableModel;
 import negocio.ClienteNegocio;
 import negocio.ComentarioNegocio;
@@ -20,9 +22,59 @@ import negocio.UsuarioNegocio;
  */
 public class main {
     public static void main(String[] args) {
-        software sof=new software();
-        //sof.processMessage("SUBJECT:[FUNC][INSERTARMULTIMEDIA]['hola','www.facebooc.com',1,1]");
-        sof.processMessage("from: pablo.jpl93@gmail.com subject:MODIFICARCLIENTE[1,\"Pablo Puma Lima\",\"pablo.jpl93@gmail.com\",\"123456\",2,1,2,\"Las Lomas\",\"www.youtube.com\"]");
+//        Persona persona=new Persona(0, "", "pablo.jpl93@gmail.com", "", 0, 0, 0);
+//        if(persona.buscarPorCorreo()){
+//            System.out.println("todo ok");
+//        }
+        //System.out.println(Ayuda.HELP_ELIMINARCLIENTE);
+    software sof=new software();
+        System.out.println(Ayuda.HELP_GLOBAL);
+    //prueba cliente
+    /*sof.processMessage("SUBJECT:INSERTARCLIENTE"
+            + "[\"Pablo Garcia Lima\",\"pablo.jpl93@gmail.com\","
+            + "\"123456\",2,1,2,\"Las Lomas\",\"www.youtube.com\"]");
+    sof.processMessage("SUBJECT:MODIFICARCLIENTE"
+            + "[\"Pablo Garcia Lima\",\"pablo.jpl93@gmail.com\","
+            + "\"123456\",76313080,1,2,\"Las Lomas\",\"www.youtube.com\"");//1tipo 2genero
+    sof.processMessage("SUBJECT:ELIMINARCLIENTE");*/
+    
+    //prueba comentario
+    //sof.processMessage("SUBJECT:INSERTARCOMENTARIO[\"No entiendo bien su labor inbox al 76313082\",1,1]");//1idperso,1idmultimedia
+    /*sof.processMessage("SUBJECT:MODIFICARCOMENTARIO[1,\"No entiendo bien su labor inbox al 76313082\",1]");//1mult 2idper
+    sof.processMessage("SUBJECT:ELIMINARCOMENTARIO[1]");
+    sof.processMessage("SUBJECT:LISTARCOMENTARIO[1]");*/
+    
+    //prueba contacto
+    //sof.processMessage("SUBJECT:INSERTARCONTACTO[\"pablo.jpl93@gmail.com\"]");
+    //sof.processMessage("SUBJECT:ELIMINARCONTACTO[1]");
+    /*sof.processMessage("SUBJECT:LISTARCONTACTO");*/
+    
+    //insertar datos principales
+    //sof.processMessage("SUBJECT:INSERTARDATOSPRINCIPALES[\"Programador\",\"2años en IBM\",1]");
+    //sof.processMessage("SUBJECT:MODIFICARDATOSPRINCIPALES[1,\"Programador\",\"1año en google\",1]");//1tipo 2genero
+    //sof.processMessage("SUBJECT:ELIMINARDATOSPRINCIPALES[1]");
+    //sof.processMessage("SUBJECT:LISTARDATOSPRINCIPALES");
+    
+    //prueba usuario
+    //sof.processMessage("SUBJECT:INSERTARUSUARIO[\"Josue Garcia Lima\",\"pablo_jpl93@hotmail.com\",\"123456\",70828866,1,2,\"Tu Primero\"]");
+    /*sof.processMessage("SUBJECT:MODIFICARUSUARIO"
+            + "[6,\"Josue Puma Lima\","
+            + "\"123456\",76313081,2,\"Tu Socio\"]");//1tipo 2genero
+    sof.processMessage("SUBJECT:ELIMINARUSUARIO");
+    
+    
+    sof.processMessage("SUBJECT:INSERTARMULTIMEDIA[\"hola\",\"www.facebook.com\",1,1]");
+    sof.processMessage("SUBJECT:ELIMINARCLIENTE[HELP]");
+    sof.processMessage("subject:MODIFICARCLIENTE[1,\"Pablo Garcia Lima\",\"pablo.jpl93@gmail.com\",\"123456\",2,1,2,\"Las Lomas\",\"www.youtube.com\"]");        
+    */    
+
+
+
+
+
+//sof.processMessage("SUBJECT:HELPGLOBAL[]");
+        //sof.processMessage("SUBJECT:INSERTARMULTIMEDIA[\"hola\",,1,1]");
+        
         //ClienteNegocio cliente= new ClienteNegocio();
 //        ClienteNegocio cliente = new ClienteNegocio("Juan Perez", "jlst.arce@gmail.com", "123456", 778474774, 1, 1, "", "");
 //        if (cliente.insertar()) {

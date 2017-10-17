@@ -119,7 +119,7 @@ public class Comentario extends Plantilla{
 
     @Override
     public String actualizar() {
-        return "update comentario set descripcion='"+descripcion+"',fecha='"+fecha.toString()+"',hora='"+hora.toString()+"',idpersona="+idpersona+",idmultimedia="+idmultimedia+"  where id="+id;
+        return "update comentario set descripcion='"+descripcion+"',idpersona="+idpersona+",idmultimedia="+idmultimedia+"  where id="+id;
     }
 
     @Override

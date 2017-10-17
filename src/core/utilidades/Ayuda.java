@@ -14,7 +14,7 @@ public class Ayuda {
     public static final String HELP_GLOBAL = "Bienvenido!!!\n\n"
             + "A continuacion se listaran los comandos disponibles para interactuar con el sistema\n"
             + "Para acceder a la documentacion de cada uno, enviar el nombre del comando seguido de la palabra HELP\n\n"
-            + "INSERTARCLIENTE\n"
+            + "INSERTARCLIENTE INSERTARCLIENTE[\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Tipo,Genero,\"Direccion\",\"Pagina Web\"]\n"
             + "MODIFICARCLIENTE\n"
             + "ELIMINARCLIENTE\n"
             
@@ -36,24 +36,22 @@ public class Ayuda {
             + "MODIFICARMULTIMEDIA\n"
             + "ELIMINARMULTIMEDIA\n"
             + "LISTARMULTIMEDIA\n"
-            
-            + "INSERTARPERSONA\n"
-            + "MODIFICARPERSONA\n"
-            + "ELIMINARPERSONA\n"
+
             
             + "INSERTARSUGERENCIA\n"
             
             + "INSERTARUSUARIO\n"
             + "MODIFICARUSUARIO\n"
             + "ELIMINARUSUARIO\n";
-    public static final String HELP_INSERTARCLIENTE = "Insertar Cliente!!!\n"
+    public static final String HELP_INSERTARCLIENTE = "INSERTARCLIENTE!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es registrar a un cliente en el sistema.\n"
             + "\n"
             + "PARAMETROS:\n"
             + "\n"
             + "- direccion (String con Comillas Dobles)\n"
-            + "- web (String con Comillas Dobles)\n";
+            + "- web (String con Comillas Dobles)\n"
+            + "INSERTARCLIENTE[\"direccion\",...]";
     public static final String HELP_MODIFICARCLIENTE = "Modificar Cliente!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es modificar a un cliente en el sistema.\n"

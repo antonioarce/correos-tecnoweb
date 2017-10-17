@@ -34,7 +34,7 @@ import negocio.UsuarioNegocio;
 public class software {
     public void processMessage(String Message) {
         // Setteando Variables
-        String destinatario = Herramientas.getDestinatario(Message);
+        String destinatario ="pablo.jpl93@gmail.com" ;//Herramientas.getDestinatario(Message);
         String content = Herramientas.getSubjectOrden(Message);
         Cinta cinta = new Cinta(content);
         Anacom anacom = new Anacom(cinta);
@@ -47,6 +47,7 @@ public class software {
             ClienteSMTP.sendMail(destinatario, "Error de Comando",
                     "El comando introducido es incorrecto, trate consultando las ayudas con el comando HELP"
             );
+            System.out.println("El comando introducido es incorrecto, trate consultando las ayudas con el comando HELP");
             //System.out.println(Ayuda.HELP_INSERTARMULTIMEDIA);
             return;
         }
@@ -55,10 +56,10 @@ public class software {
         anacom.Init();
         Token token = anacom.Preanalisis();
 
-        if (token.getNombre() == Token.HELP) {
+        if (token.getNombre() == Token.HELPGLOBAL) {
             // Mostrar Ayudas
-            ClienteSMTP.sendMail(destinatario, "Ayudas - Nueva Acropolis Mail", Ayuda.HELP_GLOBAL);
-            //System.out.println(Ayuda.HELP_GLOBAL+" DD");
+            ClienteSMTP.sendMail(destinatario, "Ayudas - Publicidad Personal\n el formato es COMANDO[\"texto\",numero,...]", Ayuda.HELP_GLOBAL);
+            System.out.println(Ayuda.HELP_GLOBAL);
             return;
         }
 
@@ -144,10 +145,11 @@ public class software {
         anacom.Avanzar();
         Token token = anacom.Preanalisis();
         // Reviso si no es ayuda
-        if (token.getNombre() == Token.HELP) {
+        if (token.getNombre() == Token.HELP || token.getAtributo()==-1) {
             // Mostrar ayuda de esa funcionalidad
             // Enviar correo con la ayuda
             ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_INSERTARCLIENTE);
+            System.out.println(Ayuda.HELP_INSERTARCLIENTE);
             return;
         }
         // Sino, ejecutar el comando
@@ -195,6 +197,7 @@ public class software {
 
         // Sino, ejecutar el comando
         ClienteNegocio clienteNegocio = new ClienteNegocio(correoDest, correoDest, correoDest, 0, 0, 0, correoDest, correoDest);
+        anacom.Avanzar();
         int id = anacom.Preanalisis().getAtributo();
         
         if (!clienteNegocio.buscarPorCorreo()){
@@ -402,6 +405,7 @@ public class software {
         ComentarioNegocio comentarioNegocio = new ComentarioNegocio();comentarioNegocio.setComentario(comentario);
         String message = Herramientas.dibujarTabla(comentarioNegocio.listar());
         ClienteSMTP.sendMail(correoDest, "Listar Comentarios", message);
+        System.out.println(message);
     }
     
     
@@ -418,13 +422,20 @@ public class software {
         // Sino, ejecutar el comando
         anacom.Avanzar();
         // Atributos
-        int idcliente = anacom.Preanalisis().getAtributo();
-        anacom.Avanzar();
-        anacom.Avanzar();
-        int idusuario = anacom.Preanalisis().getAtributo();
-        ContactoNegocio contactoNegocio = new ContactoNegocio(idcliente, idusuario);
-        contactoNegocio.guardar();
-        ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Registro realizado Correctamente");
+        String correo = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
+        Persona cliente=new Persona();
+        cliente.setEmail(correo);
+        Persona usuario=new Persona();
+        usuario.setEmail(correoDest);
+        usuario.buscarPorCorreo();
+        if (!(cliente.buscarPorCorreo() && usuario.getId()!=0)) {
+            ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Rebise bien y compruebe que ambos esten regisrados en el sistema");
+        }
+        ContactoNegocio contactoNegocio = new ContactoNegocio(cliente.getId(), usuario.getId());
+        if (contactoNegocio.guardar()) {
+            ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Registro realizado Correctamente");
+            return;
+        }ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Ha ocurrido un error en el registro al sistema");
     }
     
     private void eliminarContacto(Anacom anacom, String correoDest) {
@@ -478,6 +489,7 @@ public class software {
         contactoNegocio.setContacto(contacto);
         String message = Herramientas.dibujarTabla(contactoNegocio.listarContactos());
         ClienteSMTP.sendMail(correoDest, "Listar Contacto", message);
+        System.out.println(message);
     }    
 
     
@@ -579,7 +591,7 @@ public class software {
         Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
         persona.buscarPorCorreo();
         datosprincipalesNegocio.setDatos(datosprincipales);
-        if (!(!datosprincipales.buscar() && datosprincipales.getIdcliente()!=persona.getId() && !datosprincipalesNegocio.eliminar())) {
+        if (!(datosprincipales.getIdcliente()!=persona.getId() && !datosprincipalesNegocio.eliminar())) {
             ClienteSMTP.sendMail(correoDest, "Eliminar Datos Principales", "El Dato Principal que quiere eliminar no le pertenece");
             return;
         }
@@ -607,6 +619,7 @@ public class software {
         datosprincipalesNegocio.setDatos(datosprincipales);
         String message = Herramientas.dibujarTabla(datosprincipalesNegocio.listar());
         ClienteSMTP.sendMail(correoDest, "Listar Datos Principales", message);
+        System.out.println(message);
     }
 
     
@@ -833,7 +846,8 @@ public class software {
         // Sino, ejecutar el comando
         // Revisar los GuionBajo
         //anacom.Avanzar();
-        //anacom.Avanzar();
+        anacom.Avanzar();
+        //id
         int id = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? anacom.Preanalisis().getAtributo()
                 : -1;

@@ -24,6 +24,7 @@ public class Token {
     public static final int TRUE = 9;
     public static final int FALSE = 10;
     public static final int HELP = 11;
+    public static final int HELPGLOBAL = 12;
 
     // Funciones
     public static final int INSERTARCLIENTE = 100;
