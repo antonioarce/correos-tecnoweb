@@ -26,9 +26,9 @@ public class main {
 //        if(persona.buscarPorCorreo()){
 //            System.out.println("todo ok");
 //        }
-        //System.out.println(Ayuda.HELP_ELIMINARCLIENTE);
+        //System.out.println(Ayuda.HELP_GLOBAL);
     software sof=new software();
-        System.out.println(Ayuda.HELP_GLOBAL);
+        //System.out.println(Ayuda.HELP_GLOBAL);
     //prueba cliente
     /*sof.processMessage("SUBJECT:INSERTARCLIENTE"
             + "[\"Pablo Garcia Lima\",\"pablo.jpl93@gmail.com\","
@@ -36,18 +36,18 @@ public class main {
     sof.processMessage("SUBJECT:MODIFICARCLIENTE"
             + "[\"Pablo Garcia Lima\",\"pablo.jpl93@gmail.com\","
             + "\"123456\",76313080,1,2,\"Las Lomas\",\"www.youtube.com\"");//1tipo 2genero
-    sof.processMessage("SUBJECT:ELIMINARCLIENTE");*/
+    *///sof.processMessage("SUBJECT:ELIMINARCLIENTE");
     
     //prueba comentario
     //sof.processMessage("SUBJECT:INSERTARCOMENTARIO[\"No entiendo bien su labor inbox al 76313082\",1,1]");//1idperso,1idmultimedia
     /*sof.processMessage("SUBJECT:MODIFICARCOMENTARIO[1,\"No entiendo bien su labor inbox al 76313082\",1]");//1mult 2idper
-    sof.processMessage("SUBJECT:ELIMINARCOMENTARIO[1]");
-    sof.processMessage("SUBJECT:LISTARCOMENTARIO[1]");*/
+    sof.processMessage("SUBJECT:ELIMINARCOMENTARIO[1]");*/
+    //sof.processMessage("SUBJECT:LISTARCOMENTARIO[1]");
     
     //prueba contacto
     //sof.processMessage("SUBJECT:INSERTARCONTACTO[\"pablo.jpl93@gmail.com\"]");
     //sof.processMessage("SUBJECT:ELIMINARCONTACTO[1]");
-    /*sof.processMessage("SUBJECT:LISTARCONTACTO");*/
+    //sof.processMessage("SUBJECT:LISTARCONTACTO");
     
     //insertar datos principales
     //sof.processMessage("SUBJECT:INSERTARDATOSPRINCIPALES[\"Programador\",\"2años en IBM\",1]");
@@ -55,12 +55,23 @@ public class main {
     //sof.processMessage("SUBJECT:ELIMINARDATOSPRINCIPALES[1]");
     //sof.processMessage("SUBJECT:LISTARDATOSPRINCIPALES");
     
+    //multimedia
+    //sof.processMessage("SUBJECT:INSERTARMULTIMEDIA[\"Instalaciones Electricas\",\"www.facebook.com/presentacion.mp4\",\"Video\",1]");
+    //sof.processMessage("SUBJECT:MODIFICARMULTIMEDIA[4,\"Programador Master\",\"www.facebook.com/josuepuma\",\"Video\",1]");
+    //sof.processMessage("SUBJECT:ELIMINARMULTIMEDIA[2]");
+    //sof.processMessage("SUBJECT:LISTARMULTIMEDIA");
+    
+    //sugerencia
+    //sof.processMessage("SUBJECT:INSERTARSUGERENCIA[\"pablo_jpl93@hotmail.com\",\"Lo que buscabas\",1]");
+    
     //prueba usuario
     //sof.processMessage("SUBJECT:INSERTARUSUARIO[\"Josue Garcia Lima\",\"pablo_jpl93@hotmail.com\",\"123456\",70828866,1,2,\"Tu Primero\"]");
     /*sof.processMessage("SUBJECT:MODIFICARUSUARIO"
             + "[6,\"Josue Puma Lima\","
             + "\"123456\",76313081,2,\"Tu Socio\"]");//1tipo 2genero
     sof.processMessage("SUBJECT:ELIMINARUSUARIO");
+    
+    
     
     
     sof.processMessage("SUBJECT:INSERTARMULTIMEDIA[\"hola\",\"www.facebook.com\",1,1]");

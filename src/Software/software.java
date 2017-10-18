@@ -433,7 +433,7 @@ public class software {
         }
         ContactoNegocio contactoNegocio = new ContactoNegocio(cliente.getId(), usuario.getId());
         if (contactoNegocio.guardar()) {
-            ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Registro realizado Correctamente");
+            ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Registro realizado correctamente este es el codigo de su contacto "+contactoNegocio.getContacto().getIdcliente());
             return;
         }ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Ha ocurrido un error en el registro al sistema");
     }
@@ -643,7 +643,7 @@ public class software {
         String url = Herramientas.quitarComillas(anacon.Preanalisis().getToStr());
         anacon.Avanzar();
         anacon.Avanzar();
-        int tipo = anacon.Preanalisis().getAtributo();
+        int tipo = (Herramientas.quitarComillas(anacon.Preanalisis().getToStr()).toUpperCase().compareTo("FOTO")==0)?1:2;
         anacon.Avanzar();
         anacon.Avanzar();
         int idcliente = anacon.Preanalisis().getAtributo();
@@ -686,7 +686,7 @@ public class software {
         anacom.Avanzar();
         anacom.Avanzar();      
         if(anacom.Preanalisis().getNombre() != Token.GB)
-           multimedia.setTipo(Integer.parseInt(Herramientas.quitarComillas(anacom.Preanalisis().getToStr())));
+           multimedia.setTipo((Herramientas.quitarComillas(anacom.Preanalisis().getToStr()).toUpperCase().compareTo("FOTO")==0)?1:2);
         anacom.Avanzar();
         anacom.Avanzar();
         int idpersona = (anacom.Preanalisis().getNombre() != Token.GB)
@@ -722,6 +722,7 @@ public class software {
         multimediaNegocio.setMultimedia(multimedia);
         String message = Herramientas.dibujarTabla(multimediaNegocio.listar());
         ClienteSMTP.sendMail(correoDest, "Listar Contacto", message);
+        System.out.println(message);
     }
 
     private void eliminarMultimedia(Anacom anacom, String correoDest) {
@@ -747,12 +748,16 @@ public class software {
         multimediaNegocio.setMultimedia(multimedia);
         
         if (multimediaNegocio.buscar()) {
-            if (!(multimediaNegocio.getMultimedia().getIdcliente()!=persona.getId() && !multimediaNegocio.eliminar())) {
-                ClienteSMTP.sendMail(correoDest, "Eliminar Multimedia", "El contacto que quiere eliminar no le pertenece");
-                return;
+            if (multimediaNegocio.getMultimedia().getIdcliente()==persona.getId()) {
+                if (!multimediaNegocio.eliminar()) {
+                    ClienteSMTP.sendMail(correoDest, "Eliminar Multimedia", "La Multimedia que quiere eliminar no le pertenece");
+                    return;
+                }else{
+                    ClienteSMTP.sendMail(correoDest, "Eliminar Multimedia", "Se eliminado la publicidad multimedia correctamente");
+                    return;
+                }
             }
         }
-        ClienteSMTP.sendMail(correoDest, "Eliminar Multimedia", "Se eliminado la publicidad multimedia correctamente");
     }
     
     
@@ -770,24 +775,28 @@ public class software {
         // Sino, ejecutar el comando
         anacom.Avanzar();
         // Atributos
-        int idsugeridor = anacom.Preanalisis().getAtributo();
-        anacom.Avanzar();
-        anacom.Avanzar();
-        int receptor = anacom.Preanalisis().getAtributo();
+        String correosugerido = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
         anacom.Avanzar();
         anacom.Avanzar();
         String descripcion = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
         anacom.Avanzar();
         anacom.Avanzar();
         int idmultimedia = anacom.Preanalisis().getAtributo();
-        SugerenciaNegocio sugerenciaNegocio = new SugerenciaNegocio(idsugeridor, receptor, descripcion, idmultimedia);
-        sugerenciaNegocio.guardar();
-        Persona persona=new Persona(receptor, correoDest, descripcion, correoDest, receptor, receptor, receptor);
+        
+        Persona sugerido=new Persona(idmultimedia, correoDest, correosugerido, correoDest, idmultimedia, idmultimedia, idmultimedia);
+        sugerido.buscarPorCorreo();
+        
+        Persona persona=new Persona(idmultimedia, correoDest, correoDest, correoDest, idmultimedia, idmultimedia, idmultimedia);
         persona.buscarPorCorreo();
+        
+        SugerenciaNegocio sugerenciaNegocio = new SugerenciaNegocio(persona.getId(),sugerido.getId(),descripcion,idmultimedia);
+        sugerenciaNegocio.guardar();
+        
         Multimedia multimedia=new Multimedia(); multimedia.setId(idmultimedia);
         multimedia.buscar();
-        ClienteSMTP.sendMail(correoDest, "Registrar Sugerencia", "Registro realizado Correctamente");
-        ClienteSMTP.sendMail(correoDest, "Sugerencia", "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\n tenga usted un buen dia.");
+        //ClienteSMTP.sendMail(correoDest, "Registrar Sugerencia", "Registro realizado Correctamente");
+        //ClienteSMTP.sendMail(correoDest, "Sugerencia", "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\n tenga usted un buen dia.");
+        System.out.println("Sugerencia\n"+ "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\nTenga usted un buen dia.");
     }
 
 
