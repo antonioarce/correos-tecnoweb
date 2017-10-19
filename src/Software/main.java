@@ -5,7 +5,9 @@
  */
 package Software;
 import core.utilidades.Ayuda;
+import core.utilidades.Herramientas;
 import datos.Cliente;
+import datos.Estadistica;
 import datos.Persona;
 import javax.swing.table.DefaultTableModel;
 import negocio.ClienteNegocio;
@@ -27,7 +29,7 @@ public class main {
 //            System.out.println("todo ok");
 //        }
         //System.out.println(Ayuda.HELP_GLOBAL);
-    software sof=new software();
+    //software sof=new software();
         //System.out.println(Ayuda.HELP_GLOBAL);
     //prueba cliente
     /*sof.processMessage("SUBJECT:INSERTARCLIENTE"
@@ -116,5 +118,7 @@ public class main {
         mn.getContacto().setIdusuario(3);
         DefaultTableModel lista = mn.listarContactos();
         System.out.println(core.utilidades.Herramientas.dibujarTabla(lista));*/
+        Estadistica e = new Estadistica(1);
+        System.out.println(e.toString());
     }
 }

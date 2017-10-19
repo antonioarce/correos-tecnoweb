@@ -720,7 +720,7 @@ public class software {
         multimedia.setIdcliente(persona.getId());
         MultimediaNegocio multimediaNegocio = new MultimediaNegocio();
         multimediaNegocio.setMultimedia(multimedia);
-        String message = Herramientas.dibujarTabla(multimediaNegocio.listar());
+        String message = Herramientas.dibujarTabla(multimediaNegocio.listarPorCliente());
         ClienteSMTP.sendMail(correoDest, "Listar Contacto", message);
         System.out.println(message);
     }

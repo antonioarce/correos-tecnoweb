@@ -136,11 +136,11 @@ public class Multimedia extends Plantilla{
             if (rs.next()) {
                 System.out.println(consulta + " - REALIZADA CON EXITO");
                 this.id = rs.getInt("id");
-                this.titulo = rs.getString("direccion");
-                this.url = rs.getString("web");
-                this.contador = rs.getInt("vistos");
-                this.comentarios = rs.getInt("publicaciones");
-                this.sugerencias = rs.getInt("publicaciones");
+                this.titulo = rs.getString("titulo");
+                this.url = rs.getString("url");
+                this.contador = rs.getInt("contador");
+                this.comentarios = rs.getInt("comentarios");
+                this.sugerencias = rs.getInt("sugerencias");
                 this.fecha = rs.getDate("fecha");
                 this.hora=rs.getTime("hora");
                 this.idcliente = rs.getInt("idcliente");

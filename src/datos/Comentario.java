@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Antonio Arce
@@ -141,6 +142,5 @@ public class Comentario extends Plantilla{
     public Object[] columnas() {
         return new Object[]{"Id","Descripcion","Fecha","Hora","Idmultimedia","Idpersona"};
     }
-
     
 }

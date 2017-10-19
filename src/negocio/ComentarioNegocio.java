@@ -6,6 +6,7 @@
 package negocio;
 
 import datos.Comentario;
+import datos.Persona;
 import java.sql.Date;
 import java.sql.Time;
 import javax.swing.table.DefaultTableModel;
@@ -52,6 +53,21 @@ public class ComentarioNegocio {
     
     public DefaultTableModel listar(){
         return comentario.listarTodos();
+    }
+    
+    public DefaultTableModel listarComentarios(){
+        DefaultTableModel listaNueva = new DefaultTableModel();
+        listaNueva.setColumnIdentifiers(new Object[]{"Nombre","Descripcion","Fecha","Hora"});
+        DefaultTableModel comentarios = listar();
+        for (int i = 0; i < comentarios.getRowCount(); i++) {
+            int idc = (int)comentarios.getValueAt(i, 5);
+            Persona p = new Persona();
+            p.setId(idc);
+            if (p.buscar()) {
+                listaNueva.addRow(new Object[]{p.getNombrecompleto(),comentarios.getValueAt(i, 1),comentarios.getValueAt(i, 2),comentarios.getValueAt(i, 3)});
+            }
+        }
+        return listaNueva;
     }
     
 }

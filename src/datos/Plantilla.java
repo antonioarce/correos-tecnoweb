@@ -35,20 +35,14 @@ public abstract class Plantilla {
         try {
             Connection conn = Conexion.getConnection();
             PreparedStatement st = conn.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);              
-            boolean resultado = !st.execute();
-            if (resultado) {
-                System.out.println(consulta + " - REALIZADA CON EXITO");
-            }else{
-                System.out.println(consulta + " - NO SE REALIZO CORRECTAMENTE");
-            }
+            boolean resultado = !st.execute();          
             ResultSet auto = st.getGeneratedKeys();
             if (auto.next()) {
                 autoincrement = auto.getInt(1);
             }
             st.close();
             return resultado;
-        } catch (SQLException e) {
-            System.out.println(consulta + " - ERROR - "+e.getMessage());
+        } catch (SQLException e) {            
             return false;
         }
     }

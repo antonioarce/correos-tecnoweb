@@ -6,6 +6,7 @@
 package negocio;
 
 import datos.Multimedia;
+import datos.Plantilla;
 import java.sql.Date;
 import java.sql.Time;
 import javax.swing.table.DefaultTableModel;
@@ -50,7 +51,37 @@ public class MultimediaNegocio {
         return multimedia.borrar();
     }
     
-    public DefaultTableModel listar(){
+    public DefaultTableModel listarPorCliente(){
         return multimedia.listarTodos();
+    }
+    
+    public DefaultTableModel listarTodos(){
+        Plantilla p = new Plantilla() {
+            @Override
+            protected String insertar() {
+                return null;
+            }
+            @Override
+            protected String actualizar() {
+                return null;
+            }
+            @Override
+            protected String eliminar() {
+                return null;
+            }
+            @Override
+            protected String listar() {
+                return  "select * from multimedia";
+            }
+            @Override
+            protected int cantidadAtributos() {
+                return 10;
+            }
+            @Override
+            protected Object[] columnas() {
+                return new Object[]{"Id","Titulo","Contador","Comentarios","Sugerencias","Url","Tipo","Fecha","Hora","Idcliente"};
+            }
+        };
+        return p.listarTodos();
     }
 }
