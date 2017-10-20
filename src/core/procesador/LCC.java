@@ -43,6 +43,7 @@ public class LCC {
             "MODIFICARMULTIMEDIA",
             "ELIMINARMULTIMEDIA",
             "LISTARMULTIMEDIA",
+            "VERMULTIMEDIA",
             
             "INSERTARPERSONA",
             "MODIFICARPERSONA",
@@ -57,7 +58,9 @@ public class LCC {
             "INSERTARUSUARIO",
             "MODIFICARUSUARIO",
             "ELIMINARUSUARIO",
-            "LISTARUSUARIO"
+            "LISTARUSUARIO",
+            
+            "MOSTRARESTADISTICA"
     ));
 
     private static final LinkedList<Token> tokens = new LinkedList<>(Arrays.asList(
@@ -89,6 +92,7 @@ public class LCC {
             new Token(Token.FUNC, Token.MODIFICARMULTIMEDIA, "MODIFICARMULTIMEDIA"),
             new Token(Token.FUNC, Token.ELIMINARMULTIMEDIA, "ELIMINARMULTIMEDIA"),
             new Token(Token.FUNC, Token.LISTARMULTIMEDIA, "LISTARMULTIMEDIA"),
+            new Token(Token.FUNC, Token.VERMULTIMEDIA, "VERMULTIMEDIA"),
             
             new Token(Token.FUNC, Token.INSERTARPERSONA, "INSERTARPERSONA"),
             new Token(Token.FUNC, Token.MODIFICARPERSONA, "MODIFICARPERSONA"),
@@ -103,7 +107,9 @@ public class LCC {
             new Token(Token.FUNC, Token.INSERTARUSUARIO, "INSERTARUSUARIO"),
             new Token(Token.FUNC, Token.MODIFICARUSUARIO, "MODIFICARUSUARIO"),
             new Token(Token.FUNC, Token.ELIMINARUSUARIO, "ELIMINARUSUARIO"),
-            new Token(Token.FUNC, Token.LISTARUSUARIO, "LISTARUSUARIO")
+            new Token(Token.FUNC, Token.LISTARUSUARIO, "LISTARUSUARIO"),
+            
+            new Token(Token.FUNC, Token.MOSTRARESTADISTICA, "MOSTRARESTADISTICA")
     ));
 //cambiar estaEnTCP por estaEnLCC
     public static Token estaEnLCC(String lexema) {

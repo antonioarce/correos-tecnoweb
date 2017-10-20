@@ -23,6 +23,7 @@ import negocio.ClienteNegocio;
 import negocio.ComentarioNegocio;
 import negocio.ContactoNegocio;
 import negocio.DatosprincipalesNegocio;
+import negocio.EstadisticaNegocio;
 import negocio.MultimediaNegocio;
 import negocio.SugerenciaNegocio;
 import negocio.UsuarioNegocio;
@@ -32,10 +33,8 @@ import negocio.UsuarioNegocio;
  * @author Saulo
  */
 public class software {
-    public void processMessage(String Message) {
-        // Setteando Variables
-        String destinatario =Herramientas.getDestinatario(Message);
-        String content = Herramientas.getSubjectOrden(Message);
+    public void processMessage(String content,String destinatario,String url,String tipo) {
+      
         Cinta cinta = new Cinta(content);
         Anacom anacom = new Anacom(cinta);
         Checker checker = new Checker(anacom);
@@ -112,7 +111,7 @@ public class software {
                 break;
                 
             case Token.INSERTARMULTIMEDIA:
-                registrarMultimedia(anacom, destinatario);
+                registrarMultimedia(anacom, destinatario,url,tipo);
                 break;
             case Token.MODIFICARMULTIMEDIA:
                 modificarMultimedia(anacom, destinatario);
@@ -137,6 +136,12 @@ public class software {
             case Token.ELIMINARUSUARIO:
                 eliminarUsuario(anacom,destinatario);
                 break;
+            case Token.MOSTRARESTADISTICA:
+                mostrarEstadistica(anacom,destinatario);
+                break;
+            case Token.VERMULTIMEDIA:
+                verMultimedia(anacom,destinatario,url,tipo);
+                break;
         }
     }
 
@@ -145,29 +150,36 @@ public class software {
         anacom.Avanzar();
         Token token = anacom.Preanalisis();
         // Reviso si no es ayuda
-        if (token.getNombre() == Token.HELP || token.getAtributo()==-1) {
+        if (token.getNombre() == Token.HELP) {
             // Mostrar ayuda de esa funcionalidad
             // Enviar correo con la ayuda
             ClienteSMTP.sendMail(correoDest, "Ayudas - Publicidad Personal", Ayuda.HELP_INSERTARCLIENTE);
             System.out.println(Ayuda.HELP_INSERTARCLIENTE);
             return;
         }
+        
+        Persona p = new Persona();
+        p.setEmail(correoDest);
+        if (p.buscarPorCorreo()) {
+            ClienteSMTP.sendMail(correoDest, "Error", "Usted ya se encuentra registrado como cliente, su id es " + p.getId());
+            return;
+        }
         // Sino, ejecutar el comando
         anacom.Avanzar();
         // Atributos
         String nombre = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
-        anacom.Avanzar();
-        anacom.Avanzar();
-        String email = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
+//        anacom.Avanzar();
+//        anacom.Avanzar();
+//        String email = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
         anacom.Avanzar();
         anacom.Avanzar();
         String password = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
         anacom.Avanzar();
         anacom.Avanzar();
         int celular = anacom.Preanalisis().getAtributo();
-        anacom.Avanzar();
-        anacom.Avanzar();
-        int tipo = anacom.Preanalisis().getAtributo();
+//        anacom.Avanzar();
+//        anacom.Avanzar();
+//        int tipo = anacom.Preanalisis().getAtributo();
         anacom.Avanzar();
         anacom.Avanzar();
         int genero = anacom.Preanalisis().getAtributo();
@@ -177,7 +189,7 @@ public class software {
         anacom.Avanzar();
         anacom.Avanzar();
         String web = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
-        ClienteNegocio clienteNegocio = new ClienteNegocio(nombre, email, password, celular, tipo, genero, direccion, web);
+        ClienteNegocio clienteNegocio = new ClienteNegocio(nombre, correoDest, password, celular, 1, genero, direccion, web);
         clienteNegocio.insertar();
         ClienteSMTP.sendMail(correoDest, "Registrar Cliente", "Registro realizado Correctamente su codigo es "+clienteNegocio.getCliente().getId());
     }
@@ -197,24 +209,25 @@ public class software {
 
         // Sino, ejecutar el comando
         ClienteNegocio clienteNegocio = new ClienteNegocio(correoDest, correoDest, correoDest, 0, 0, 0, correoDest, correoDest);
-        anacom.Avanzar();
-        int id = anacom.Preanalisis().getAtributo();
+       
+        
         
         if (!clienteNegocio.buscarPorCorreo()){
-            ClienteSMTP.sendMail(correoDest, "Ayuda - Publicidad Personal", "Usted no se encuentra registrado para realizar modificaciones");
-            return;
+                ClienteSMTP.sendMail(correoDest, "Ayuda - Publicidad Personal", "Usted no se encuentra registrado para realizar modificaciones");
+                return;
+
         }
+        int id = clienteNegocio.getPersona().getId();
         // Revisar los GuionBajo
-        anacom.Avanzar();
         anacom.Avanzar();
         String nombres = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? Herramientas.quitarComillas(anacom.Preanalisis().getToStr())
                 : clienteNegocio.getPersona().getNombrecompleto();
-        anacom.Avanzar();
-        anacom.Avanzar();
-        String email = (anacom.Preanalisis().getNombre() != Token.GB)
-                ? Herramientas.quitarComillas(anacom.Preanalisis().getToStr())
-                : clienteNegocio.getPersona().getEmail();
+//        anacom.Avanzar();
+//        anacom.Avanzar();
+//        String email = (anacom.Preanalisis().getNombre() != Token.GB)
+//                ? Herramientas.quitarComillas(anacom.Preanalisis().getToStr())
+//                : clienteNegocio.getPersona().getEmail();
         anacom.Avanzar();
         anacom.Avanzar();
         String passwords = (anacom.Preanalisis().getNombre() != Token.GB)
@@ -225,11 +238,11 @@ public class software {
         int celular = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? anacom.Preanalisis().getAtributo()
                 : clienteNegocio.getPersona().getCelular();
-        anacom.Avanzar();
-        anacom.Avanzar();
-        int tipo = (anacom.Preanalisis().getNombre() != Token.GB)
-                ? anacom.Preanalisis().getAtributo()
-                : clienteNegocio.getPersona().getTipo();
+//        anacom.Avanzar();
+//        anacom.Avanzar();
+//        int tipo = (anacom.Preanalisis().getNombre() != Token.GB)
+//                ? anacom.Preanalisis().getAtributo()
+//                : clienteNegocio.getPersona().getTipo();
         anacom.Avanzar();
         anacom.Avanzar();        
         int genero = (anacom.Preanalisis().getNombre() != Token.GB)
@@ -245,7 +258,7 @@ public class software {
         String web = (anacom.Preanalisis().getNombre() != Token.GB)
                 ? Herramientas.quitarComillas(anacom.Preanalisis().getToStr())
                 : clienteNegocio.getCliente().getWeb();
-        clienteNegocio=new ClienteNegocio(nombres, email, passwords, celular, tipo, genero, direccion, web);
+        clienteNegocio=new ClienteNegocio(nombres, correoDest, passwords, celular, 1, genero, direccion, web);
         clienteNegocio.getPersona().setId(id);
         clienteNegocio.getCliente().setId(id);
         clienteNegocio.actualizar();
@@ -269,7 +282,7 @@ public class software {
         persona.buscarPorCorreo();
         ClienteNegocio.setPersona(persona);
         ClienteNegocio.setCliente(new Cliente(persona.getId(), correoDest, correoDest, 0, 0));
-        if (ClienteNegocio.eliminar()) {
+        if (!ClienteNegocio.eliminar()) {
             ClienteSMTP.sendMail(correoDest, "Eliminar Cliente", "Ocurrio un problema al intentar eliminar o usted no esta registrado");
             return;
         }
@@ -300,6 +313,7 @@ public class software {
         int idmultimedia = anacom.Preanalisis().getAtributo();
         ComentarioNegocio comentarioNegocio = new ComentarioNegocio(descripcion, idpersona, idmultimedia);
         comentarioNegocio.guardar();
+        comentarioNegocio.getComentario().setAutoincrement();
         ClienteSMTP.sendMail(correoDest, "Registrar Comentario", "Registro realizado Correctamente el codigo de su comentario es "+comentarioNegocio.getComentario().getId());
     }
 
@@ -429,7 +443,7 @@ public class software {
         usuario.setEmail(correoDest);
         usuario.buscarPorCorreo();
         if (!(cliente.buscarPorCorreo() && usuario.getId()!=0)) {
-            ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Rebise bien y compruebe que ambos esten regisrados en el sistema");
+            ClienteSMTP.sendMail(correoDest, "Registrar Contacto", "Revise bien y compruebe que ambos esten regisrados en el sistema");
         }
         ContactoNegocio contactoNegocio = new ContactoNegocio(cliente.getId(), usuario.getId());
         if (contactoNegocio.guardar()) {
@@ -623,7 +637,7 @@ public class software {
     }
 
     
-    private void registrarMultimedia(Anacom anacon, String correoDest) {
+    private void registrarMultimedia(Anacom anacon, String correoDest,String urlm, String tipom) {
         // Obtengo el Siguiente token
         anacon.Avanzar();
         Token token = anacon.Preanalisis();
@@ -638,17 +652,18 @@ public class software {
         anacon.Avanzar();
         // Atributos
         String titulo = Herramientas.quitarComillas(anacon.Preanalisis().getToStr());
-        anacon.Avanzar();
-        anacon.Avanzar();
-        String url = Herramientas.quitarComillas(anacon.Preanalisis().getToStr());
-        anacon.Avanzar();
-        anacon.Avanzar();
-        int tipo = (Herramientas.quitarComillas(anacon.Preanalisis().getToStr()).toUpperCase().compareTo("FOTO")==0)?1:2;
+//        anacon.Avanzar();
+//        anacon.Avanzar();
+        //String url = Herramientas.quitarComillas(anacon.Preanalisis().getToStr());
+//        anacon.Avanzar();
+//        anacon.Avanzar();
+        int tipo = tipom.equalsIgnoreCase("image")?1:2;
         anacon.Avanzar();
         anacon.Avanzar();
         int idcliente = anacon.Preanalisis().getAtributo();
-        MultimediaNegocio multimediaNegocio = new MultimediaNegocio(titulo, url, tipo, idcliente);
+        MultimediaNegocio multimediaNegocio = new MultimediaNegocio(titulo, urlm, tipo, idcliente);
         multimediaNegocio.guardar();
+        multimediaNegocio.getMultimedia().setAutoincrement();
         ClienteSMTP.sendMail(correoDest, "Registrar Multimedia", "Registro realizado Correctamente el codigo de su multimedia es "+multimediaNegocio.getMultimedia().getId());
     }
 
@@ -683,10 +698,7 @@ public class software {
         
         if(anacom.Preanalisis().getNombre() != Token.GB)
            multimedia.setTitulo(Herramientas.quitarComillas(anacom.Preanalisis().getToStr()));
-        anacom.Avanzar();
-        anacom.Avanzar();      
-        if(anacom.Preanalisis().getNombre() != Token.GB)
-           multimedia.setTipo((Herramientas.quitarComillas(anacom.Preanalisis().getToStr()).toUpperCase().compareTo("FOTO")==0)?1:2);
+       
         anacom.Avanzar();
         anacom.Avanzar();
         int idpersona = (anacom.Preanalisis().getNombre() != Token.GB)
@@ -824,16 +836,16 @@ public class software {
         anacom.Avanzar();
         anacom.Avanzar();
         int celular = anacom.Preanalisis().getAtributo();
-        anacom.Avanzar();
-        anacom.Avanzar();
-        int tipo = anacom.Preanalisis().getAtributo();
+//        anacom.Avanzar();
+//        anacom.Avanzar();
+//        int tipo = anacom.Preanalisis().getAtributo();
         anacom.Avanzar();
         anacom.Avanzar();
         int genero = anacom.Preanalisis().getAtributo();
         anacom.Avanzar();
         anacom.Avanzar();
         String empresa = Herramientas.quitarComillas(anacom.Preanalisis().getToStr());
-        UsuarioNegocio usuarioNegocio = new UsuarioNegocio(nombre, email, password, celular, tipo, genero, empresa);
+        UsuarioNegocio usuarioNegocio = new UsuarioNegocio(nombre, email, password, celular, 2, genero, empresa);
         usuarioNegocio.guardar();
         //Cliente cliente=;
         ClienteSMTP.sendMail(correoDest, "Registrar Usuario", "Registro realizado Correctamente su codigo es "+usuarioNegocio.getUsuario().getId());
@@ -927,6 +939,43 @@ public class software {
             return;
         }
         ClienteSMTP.sendMail(correoDest, "Eliminar Usuario", "Se elimino su cuenta correcta");
+    }
+
+    private void mostrarEstadistica(Anacom anacom, String destinatario) {
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(destinatario, "Ayudas - Publicidad Personal", Ayuda.HELP_ELIMINARUSUARIO);
+            return;
+        }
+        anacom.Avanzar();
+        EstadisticaNegocio ne = new EstadisticaNegocio(anacom.Preanalisis().getAtributo());
+        ClienteSMTP.sendMail(destinatario, "Estadistica de cliente", ne.mostrar());
+        
+    }
+
+    private void verMultimedia(Anacom anacom, String destinatario, String url, String tipo) {
+        anacom.Avanzar();
+        Token token = anacom.Preanalisis();
+        // Reviso si no es ayuda
+        if (token.getNombre() == Token.HELP) {
+            // Mostrar ayuda de esa funcionalidad
+            // Enviar correo con la ayuda
+            ClienteSMTP.sendMail(destinatario, "Ayudas - Publicidad Personal", Ayuda.HELP_ELIMINARUSUARIO);
+            return;
+        }
+        anacom.Avanzar();
+        int id = anacom.Preanalisis().getAtributo();
+        MultimediaNegocio nm = new MultimediaNegocio();
+        nm.getMultimedia().setId(id);
+        if (nm.buscar()) {
+            ClienteSMTP.sendMailWithFile(destinatario, nm.getMultimedia().getUrl(), nm.getMultimedia().getTitulo(), "Ver multimedia: "+nm.getMultimedia().getId());
+        }else{
+            ClienteSMTP.sendMail(destinatario, "Error Ver Multimedia", "No se encontraron los datos solicitados");
+        }
     }
     
 }

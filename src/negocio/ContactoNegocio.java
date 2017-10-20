@@ -51,14 +51,14 @@ public class ContactoNegocio {
     
     public DefaultTableModel listarContactos(){
         DefaultTableModel listaNueva = new DefaultTableModel();
-        listaNueva.setColumnIdentifiers(new Object[]{"Nombre","Correo","Celular","Direccion"});
+        listaNueva.setColumnIdentifiers(new Object[]{"Id","Nombre","Correo","Celular","Direccion"});
         DefaultTableModel contactos = listar();
         for (int i = 0; i < contactos.getRowCount(); i++) {
             int idc = (int)contactos.getValueAt(i, 0);
             ClienteNegocio p = new ClienteNegocio();
             p.getPersona().setId(idc);
             if (p.buscar()) {
-                listaNueva.addRow(new Object[]{p.getPersona().getNombrecompleto(),p.getPersona().getEmail(),p.getPersona().getCelular(),p.getCliente().getDireccion()});
+                listaNueva.addRow(new Object[]{p.getPersona().getId(),p.getPersona().getNombrecompleto(),p.getPersona().getEmail(),p.getPersona().getCelular(),p.getCliente().getDireccion()});
             }
         }
         return listaNueva;

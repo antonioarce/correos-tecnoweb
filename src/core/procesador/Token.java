@@ -51,6 +51,7 @@ public class Token {
     public static final int MODIFICARMULTIMEDIA = 117;
     public static final int ELIMINARMULTIMEDIA = 118;
     public static final int LISTARMULTIMEDIA = 119;
+    public static final int VERMULTIMEDIA = 133;
     
     public static final int INSERTARPERSONA = 120;
     public static final int MODIFICARPERSONA = 121;
@@ -66,6 +67,8 @@ public class Token {
     public static final int MODIFICARUSUARIO = 129;
     public static final int ELIMINARUSUARIO = 130;
     public static final int LISTARUSUARIO = 131;
+    
+    public static final int MOSTRARESTADISTICA = 132;
     
 
     private int nombre;

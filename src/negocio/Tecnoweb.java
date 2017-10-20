@@ -5,6 +5,7 @@
  */
 package negocio;
 
+import Software.CorreosTecno;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimePullMultipart;
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -30,6 +31,7 @@ public class Tecnoweb {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        new CorreosTecno().setVisible(true);
         // TODO code application logic here
         /*Connection cnn = Conexion.getConnection();
         Conexion.cerrarConexion();*/
@@ -75,8 +77,7 @@ public class Tecnoweb {
         Sugerencia suge= new Sugerencia(1, 2, 3, "hola 3", new Date(117,6, 16), new Time(16, 16, 0), 2);
         suge.modificar();*/
         /*comen.guardar();
-        suge.guardar();*/
-        System.out.println(Herramientas.dibujarTabla((new Persona()).listarTodos()));
+        suge.guardar();*/        
         //Herramientas.dibujarTabla((new Persona()).listarTodos());
     }
     

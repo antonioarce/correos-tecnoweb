@@ -88,10 +88,10 @@ public class Estadistica {
     public String toString() {
         String s = "Visitas Realilzadas: " + vistos + "\n\r";
         s += "Publicaciones Realizadas: " + publicaciones + "\n\r";
-        s += "Comentarios en mis publicaciones: " + publicaciones + "\n\r";
-        s += "Sugerencias a mis publicaciones: " + publicaciones + "\n\r";
-        s += "Imagenes Publicadas: " + publicaciones + "\n\r";
-        s += "Videos Publicados: " + publicaciones + "\n\r";
+        s += "Comentarios en mis publicaciones: " + comentarios + "\n\r";
+        s += "Sugerencias a mis publicaciones: " + sugerencias + "\n\r";
+        s += "Imagenes Publicadas: " + imagenes + "\n\r";
+        s += "Videos Publicados: " + videos + "\n\r";
         return s;
     }
     

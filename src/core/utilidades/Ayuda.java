@@ -14,35 +14,37 @@ public class Ayuda {
     public static final String HELP_GLOBAL = "Bienvenido!!!\n\n"
             + "A continuacion se listaran los comandos disponibles para interactuar con el sistema\n"
             + "Para acceder a la documentacion de cada uno, enviar el nombre del comando seguido de la palabra HELP\n\n"
-            + "INSERTARCLIENTE\nINSERTARCLIENTE[\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Tipo,Genero,\"Direccion\",\"Pagina Web\"]\n"
-            + "MODIFICARCLIENTE\n[MODIFICARCLIENTE\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Tipo,Genero,\"Direccion\",\"Pagina Web\"]\n"
+            + "INSERTARCLIENTE\nINSERTARCLIENTE[\"Nombre Completo\",\"Contraseña\",Celular,Genero,\"Direccion\",\"Pagina Web\"]\n"
+            + "MODIFICARCLIENTE\n[MODIFICARCLIENTE\"Nombre Completo\",\"Contraseña\",Celular,Genero,\"Direccion\",\"Pagina Web\"]\n"
             + "ELIMINARCLIENTE\nELIMINARCLIENTE\n"
             
             + "INSERTARCOMENTARIO\nINSERTARCOMENTARIO[\"Comentario\",Codigo Persona,Codigo Multimedia]\n"
             + "MODIFICARCOMENTARIO\nMODIFICARCOMENTARIO[Codigo Comentario,\"Comentario\",Codigo Persona,Codigo Multimedia]\n"
-            + "ELIMINARCOMENTARIO\nELIMINARCOMENTARIO[1]\n"
+            + "ELIMINARCOMENTARIO\nELIMINARCOMENTARIO[Codigo Comentario]\n"
             + "LISTARCOMENTARIO\nLISTARCOMENTARIO[Codigo Multimedia]\n"
             
             + "INSERTARCONTACTO\nINSERTARCONTACTO[\"Correo\"]\n"
-            + "ELIMINARCONTACTO\nELIMINARCONTACTO[1]\n"
+            + "ELIMINARCONTACTO\nELIMINARCONTACTO[idcontacto]\n"
             + "LISTARCONTACTO\nLISTARCONTACTO\n"
             
             + "INSERTARDATOSPRINCIPALES\nINSERTARDATOSPRINCIPALES[\"Titulo\",\"Descripcion\",Su Codigo]\n"
             + "MODIFICARDATOSPRINCIPALES\nMODIFICARDATOSPRINCIPALES[Codigo De Dato Principal,\"Titulo\",\"Descripcion\",Su Codigo]\n"
-            + "ELIMINARDATOSPRINCIPALES\nELIMINARDATOSPRINCIPALES[1]\n"
+            + "ELIMINARDATOSPRINCIPALES\nELIMINARDATOSPRINCIPALES[codigo]\n"
             + "LISTARDATOSPRINCIPALES\nLISTARDATOSPRINCIPALES\n"
             
-            + "INSERTARMULTIMEDIA\nINSERTARMULTIMEDIA[\"Titulo\",\"Archivo o Url\",\"Video o Foto\",Su Codigo]\n"
-            + "MODIFICARMULTIMEDIA\nMODIFICARMULTIMEDIA[Codigo Multimedia,\"Titulo\",\"Archivo o Url\",\"Video o Foto\",Su Codigo]\n"
-            + "ELIMINARMULTIMEDIA\nELIMINARMULTIMEDIA[Codigo Publicidad]\n"
+            + "INSERTARMULTIMEDIA\nINSERTARMULTIMEDIA[\"Titulo\",Su Codigo]\n"
+            + "MODIFICARMULTIMEDIA\nMODIFICARMULTIMEDIA[Codigo Multimedia,\"Titulo\",Su Codigo]\n"
+            + "ELIMINARMULTIMEDIA\nELIMINARMULTIMEDIA[Codigo Multimedia]\n"
             + "LISTARMULTIMEDIA\nLISTARMULTIMEDIA\n"
+            + "VERMULTIMEDIA\nVERMULTIMEDIA[Cod Multimedia]\n"
 
             
             + "INSERTARSUGERENCIA\nINSERTARSUGERENCIA[\"Correo a Recomentdar\",\"Comentario\",Su Codigo]\n"
             
-            + "INSERTARUSUARIO\nINSERTARUSUARIO[\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Tipo,Genero,\"Empresa\"]\n"
-            + "MODIFICARUSUARIO\nMODIFICARUSUARIO[\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Tipo,Genero,\"Empresa\"]\n"
-            + "ELIMINARUSUARIO\nELIMINARUSUARIO\n";
+            + "INSERTARUSUARIO\nINSERTARUSUARIO[\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Genero,\"Empresa\"]\n"
+            + "MODIFICARUSUARIO\nMODIFICARUSUARIO[\"Nombre Completo\",\"Correo\",\"Contraseña\",Celular,Genero,\"Empresa\"]\n"
+            + "ELIMINARUSUARIO\nELIMINARUSUARIO\n"
+             + "MOSTRARESTADISTICA\nMOSTRARESTADISTICA[Su Codigo]\n";
     public static final String HELP_INSERTARCLIENTE = "INSERTARCLIENTE!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es registrar a un cliente en el sistema.\n"
@@ -77,7 +79,7 @@ public class Ayuda {
     public static final String HELP_LISTARCLIENTE = "Lista De Registros!!!\n"
             + "\n"
             + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
-            + "no es necesario enviar ningun parametros";
+            + "no es necesario enviar ningun parametro";
     
     
     public static final String HELP_INSERTARCOMENTARIO = "Insertar Comentario!!!\n"
@@ -337,4 +339,20 @@ public class Ayuda {
             + "\n"
             + "Lo que hace el siguiente comando es listar los registros de la tabla en el sistema,\n"
             + "no es necesario enviar ningun parametros";
+    public static final String HELP_VERMULTIMEDIA = "VERMULTIMEDIA!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es mostrar el contenido multimeda.\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- id (Entero, identificador de multimedia)\n"
+            + "INSERTARCLIENTE[\"direccion\",...]";
+    public static final String HELP_MOSTRARESTADISTICA = "MOSTRARESTADISTICA!!!\n"
+            + "\n"
+            + "Lo que hace el siguiente comando es mostrar la estadistica de un cliente.\n"
+            + "\n"
+            + "PARAMETROS:\n"
+            + "\n"
+            + "- id (Entero identificador de un cliente)\n"
+            + "INSERTARCLIENTE[\"direccion\",...]";
 }

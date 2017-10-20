@@ -8,6 +8,7 @@ package Software;
 import core.protocolos.ClientePOP;
 import Software.software;
 import core.utilidades.Constantes;
+import core.utilidades.Herramientas;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,17 +37,20 @@ public class CorreosTecno extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            System.out.println("Iniciar Escucha!!!");
+            System.out.println("Iniciando, a la espera de mensajes!!");
             while (estado) {
                 // Preguntar si hay mail
-                String content = ClientePOP.readMail();
-                if (content != null) {
-                    System.out.println("Llego Correo!!!");
-                    new HiloAtencion(content).start();
+                if (ClientePOP.hayMensajes()) {
+                    String content[] = ClientePOP.readMail();
+                    if (content != null) {
+                        System.out.println("Llego Correo!!!");
+                        new HiloAtencion(content).start();
+                    }
                 }
+
                 waitCiclo();
             }
-            System.out.println("Terminar Escucha!!!");
+            System.out.println("Finalizado");
         }
 
         public void waitCiclo() {
@@ -60,16 +64,22 @@ public class CorreosTecno extends javax.swing.JFrame {
 
     public class HiloAtencion extends Thread {
 
-        public volatile String mensaje;
+        public volatile String mensaje[];
 
-        public HiloAtencion(String mensaje) {
+        public HiloAtencion(String mensaje[]) {
             this.mensaje = mensaje;
         }
 
         @Override
         public void run() {
-            System.out.println(mensaje);
-            //new software().processMessage(mensaje);
+            //System.out.println(mensaje[0] + "\n\r" + mensaje[1] + "\n\r" + mensaje[2] + "\n\r" + mensaje[3]);
+            try {
+                new software().processMessage(mensaje[0],mensaje[1],mensaje[2],mensaje[3]);
+            } catch (Exception e) {
+                System.out.println("Ocurrio una excepcion");
+                System.err.println(e.getMessage());
+            }
+            
         }
     }
 

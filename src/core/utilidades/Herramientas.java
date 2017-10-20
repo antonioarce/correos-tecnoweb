@@ -103,8 +103,8 @@ public class Herramientas {
         }
 
         // Creando Tabla para mostrar
-        Tablero board = new Tablero(450);
-        Tabla table = new Tabla(board, 450, headers, rowList);
+        Tablero board = new Tablero(190);
+        Tabla table = new Tabla(board, 190, headers, rowList);
         Bloque tableBlock = table.tableToBlocks();
         board.setInitialBlock(tableBlock);
         board.build();
