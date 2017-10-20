@@ -732,8 +732,14 @@ public class software {
         multimedia.setIdcliente(persona.getId());
         MultimediaNegocio multimediaNegocio = new MultimediaNegocio();
         multimediaNegocio.setMultimedia(multimedia);
-        String message = Herramientas.dibujarTabla(multimediaNegocio.listarPorCliente());
-        ClienteSMTP.sendMail(correoDest, "Listar Contacto", message);
+        String message ="";
+        if (persona.getTipo()==1) {
+            message = Herramientas.dibujarTabla(multimediaNegocio.listarPorCliente());
+        }else{
+            message = Herramientas.dibujarTabla(multimediaNegocio.listarTodos());
+        }
+        
+        ClienteSMTP.sendMail(correoDest, "Listar Multimedia", message);
         System.out.println(message);
     }
 
@@ -806,8 +812,8 @@ public class software {
         
         Multimedia multimedia=new Multimedia(); multimedia.setId(idmultimedia);
         multimedia.buscar();
-        //ClienteSMTP.sendMail(correoDest, "Registrar Sugerencia", "Registro realizado Correctamente");
-        //ClienteSMTP.sendMail(correoDest, "Sugerencia", "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\n tenga usted un buen dia.");
+        ClienteSMTP.sendMail(correoDest, "Registrar Sugerencia", "Registro realizado Correctamente");
+        ClienteSMTP.sendMail(sugerido.getEmail(), "Sugerencia", "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\n tenga usted un buen dia.");
         System.out.println("Sugerencia\n"+ "El usuario "+persona.getNombrecompleto()+" le sugerio \n"+ multimedia.getTitulo()+"\n"+multimedia.getUrl()+"\nTenga usted un buen dia.");
     }
 
@@ -953,7 +959,7 @@ public class software {
         }
         anacom.Avanzar();
         EstadisticaNegocio ne = new EstadisticaNegocio(anacom.Preanalisis().getAtributo());
-        ClienteSMTP.sendMail(destinatario, "Estadistica de cliente", ne.mostrar());
+        ClienteSMTP.sendMail(destinatario, "Estadistica de Cliente", ne.mostrar());
         
     }
 
