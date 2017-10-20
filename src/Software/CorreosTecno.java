@@ -68,7 +68,8 @@ public class CorreosTecno extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            new software().processMessage(mensaje);
+            System.out.println(mensaje);
+            //new software().processMessage(mensaje);
         }
     }
 

@@ -58,6 +58,8 @@ public class ClientePOP {
                     command = "DELE 1\n";
                     writer.writeBytes(command);
                     reader.readLine();
+                }else{
+                    System.out.println("No hay mensajes");
                 }
 
                 command = "QUIT\r\n";

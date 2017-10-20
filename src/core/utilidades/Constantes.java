@@ -18,5 +18,5 @@ public class Constantes {
     public static final String MAIL_USERMAIL = "grupo08sa@ficct.uagrm.edu.bo";
     
     // Time for Server Request
-    public static final int TIME_THREAD = 2; // Tiempo en segundos
+    public static final int TIME_THREAD = 1; // Tiempo en segundos
 }

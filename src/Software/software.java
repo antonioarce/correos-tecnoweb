@@ -34,7 +34,7 @@ import negocio.UsuarioNegocio;
 public class software {
     public void processMessage(String Message) {
         // Setteando Variables
-        String destinatario ="pablo.jpl93@gmail.com" ;//Herramientas.getDestinatario(Message);
+        String destinatario =Herramientas.getDestinatario(Message);
         String content = Herramientas.getSubjectOrden(Message);
         Cinta cinta = new Cinta(content);
         Anacom anacom = new Anacom(cinta);
@@ -56,10 +56,10 @@ public class software {
         anacom.Init();
         Token token = anacom.Preanalisis();
 
-        if (token.getNombre() == Token.HELPGLOBAL) {
+        if (token.getNombre() == Token.HELP) {
             // Mostrar Ayudas
             ClienteSMTP.sendMail(destinatario, "Ayudas - Publicidad Personal\n el formato es COMANDO[\"texto\",numero,...]", Ayuda.HELP_GLOBAL);
-            System.out.println(Ayuda.HELP_GLOBAL);
+            //System.out.println(Ayuda.HELP_GLOBAL);
             return;
         }
 
