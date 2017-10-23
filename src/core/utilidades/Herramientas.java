@@ -80,37 +80,48 @@ public class Herramientas {
     }
 
     public static String dibujarTabla(DefaultTableModel tabla) {
-        String tableString = "";
-        ArrayList<String> headers = new ArrayList<>();
-        ArrayList<List<String>> rowList = new ArrayList<>();
-
-        // Agregando Los Headers
-        for (int i = 0; i < tabla.getColumnCount(); i++) {
-            headers.add(tabla.getColumnName(i));
-        }
-
-        // Agregando Content
+        
+        String delimiter = "-------------------------------------------------------------------------\n\r";
+        String tableString = delimiter;
         for (int i = 0; i < tabla.getRowCount(); i++) {
-            ArrayList<String> row = new ArrayList<>();
             for (int j = 0; j < tabla.getColumnCount(); j++) {
-                row.add(String.valueOf(tabla.getValueAt(i, j)));
+                tableString += tabla.getColumnName(j) + ": " + String.valueOf(tabla.getValueAt(i, j)) + "\n\r";
             }
-            rowList.add(row.subList(0, row.size()));
+            tableString += delimiter;
         }
-
-        if (rowList.size() < 1) {
-            return "(Tabla Vacia)";
-        }
-
-        // Creando Tabla para mostrar
-        Tablero board = new Tablero(190);
-        Tabla table = new Tabla(board, 190, headers, rowList);
-        Bloque tableBlock = table.tableToBlocks();
-        board.setInitialBlock(tableBlock);
-        board.build();
-        tableString = board.getPreview();
-
         return tableString;
+        
+//        
+//        ArrayList<String> headers = new ArrayList<>();
+//        ArrayList<List<String>> rowList = new ArrayList<>();
+//
+//        // Agregando Los Headers
+//        for (int i = 0; i < tabla.getColumnCount(); i++) {
+//            headers.add(tabla.getColumnName(i));
+//        }
+//
+//        // Agregando Content
+//        for (int i = 0; i < tabla.getRowCount(); i++) {
+//            ArrayList<String> row = new ArrayList<>();
+//            for (int j = 0; j < tabla.getColumnCount(); j++) {
+//                row.add(String.valueOf(tabla.getValueAt(i, j)));
+//            }
+//            rowList.add(row.subList(0, row.size()));
+//        }
+//
+//        if (rowList.size() < 1) {
+//            return "(Tabla Vacia)";
+//        }
+//
+//        // Creando Tabla para mostrar
+//        Tablero board = new Tablero(190);
+//        Tabla table = new Tabla(board, 190, headers, rowList);
+//        Bloque tableBlock = table.tableToBlocks();
+//        board.setInitialBlock(tableBlock);
+//        board.build();
+//        tableString = board.getPreview();
+//
+//        return tableString;
     }
 
     public static String quitarComillas(String texto) {

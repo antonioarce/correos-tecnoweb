@@ -732,15 +732,8 @@ public class software {
         multimedia.setIdcliente(persona.getId());
         MultimediaNegocio multimediaNegocio = new MultimediaNegocio();
         multimediaNegocio.setMultimedia(multimedia);
-        String message ="";
-        if (persona.getTipo()==1) {
-            message = Herramientas.dibujarTabla(multimediaNegocio.listarPorCliente());
-        }else{
-            message = Herramientas.dibujarTabla(multimediaNegocio.listarTodos());
-        }
-        
+        String message = Herramientas.dibujarTabla(multimediaNegocio.listarTodos());
         ClienteSMTP.sendMail(correoDest, "Listar Multimedia", message);
-        System.out.println(message);
     }
 
     private void eliminarMultimedia(Anacom anacom, String correoDest) {
