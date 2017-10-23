@@ -82,6 +82,7 @@ public class ClientePOP {
     private static String getTextFromMimeMultipart(
             MimeMultipart mimeMultipart) throws MessagingException, IOException {
         String result = "";
+        System.out.println("Leyendo archivo......");
         int count = mimeMultipart.getCount();
         for (int i = 0; i < count; i++) {
             BodyPart bodyPart = mimeMultipart.getBodyPart(i);
@@ -101,7 +102,6 @@ public class ClientePOP {
                 if (bodyPart.getContent() instanceof com.sun.mail.util.BASE64DecoderStream) {
                     result = "archivos/imagenes/image" + new Date().getTime() + "." + ext;
                     File f = new File(result);
-                    System.out.println("Leyendo Imagen......");
                     DataOutputStream output = new DataOutputStream(
                             new BufferedOutputStream(new FileOutputStream(f)));
                     com.sun.mail.util.BASE64DecoderStream test
@@ -130,7 +130,7 @@ public class ClientePOP {
                 if (bodyPart.getContent() instanceof com.sun.mail.util.BASE64DecoderStream) {
                     result = "archivos/videos/video" + new Date().getTime() + "." + ext;
                     File f = new File(result);
-                    System.out.println("Leyendo Video......");
+                    
                     DataOutputStream output = new DataOutputStream(
                             new BufferedOutputStream(new FileOutputStream(f)));
                     com.sun.mail.util.BASE64DecoderStream test
