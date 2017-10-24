@@ -639,7 +639,7 @@ public class software {
         datosprincipales.setIdcliente(n.getPersona().getId());
         DatosprincipalesNegocio datosprincipalesNegocio = new DatosprincipalesNegocio();
         datosprincipalesNegocio.setDatos(datosprincipales);
-        String message = "Cliente: " + n.getPersona().getNombrecompleto() + "\n\r" + Herramientas.dibujarTabla(datosprincipalesNegocio.listar());
+        String message = "Nombre = " + n.getPersona().getNombrecompleto() + "\n" + Herramientas.dibujarTabla(datosprincipalesNegocio.listar());
         ClienteSMTP.sendMail(correoDest, "Listar Datos Principales", message);
         System.out.println(message);
     }
