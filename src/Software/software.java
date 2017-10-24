@@ -530,6 +530,7 @@ public class software {
         int idcliente = anacom.Preanalisis().getAtributo();
         DatosprincipalesNegocio datosprincipalesNegocio = new DatosprincipalesNegocio(titulo, descripcion, idcliente);
         datosprincipalesNegocio.guardar();
+        datosprincipalesNegocio.getDatos().setAutoincrement();
         ClienteSMTP.sendMail(correoDest, "Registrar Dato Principal", "Registro realizado Correctamente el codigo de su dato principal es "+datosprincipalesNegocio.getDatos().getId());
     }
 
@@ -625,14 +626,21 @@ public class software {
             return;
         }
         // Sino, ejecutar el comando
-        Persona persona= new Persona(0, correoDest, correoDest, correoDest, 0, 0, 0);
-        persona.buscarPorCorreo();
+        anacom.Avanzar();
+        int id = anacom.Preanalisis().getAtributo();
+        ClienteNegocio n = new ClienteNegocio();
+        n.getPersona().setId(id);
+        n.getCliente().setId(id);
+        if (!n.buscar()) {
+            ClienteSMTP.sendMail(correoDest, "Listar Datos Principales", "No se econtro el cliente especificado");
+            return;
+        }
         Datosprincipales datosprincipales=new Datosprincipales();
-        datosprincipales.setIdcliente(persona.getId());
+        datosprincipales.setIdcliente(n.getPersona().getId());
         DatosprincipalesNegocio datosprincipalesNegocio = new DatosprincipalesNegocio();
         datosprincipalesNegocio.setDatos(datosprincipales);
         String message = Herramientas.dibujarTabla(datosprincipalesNegocio.listar());
-        ClienteSMTP.sendMail(correoDest, "Listar Datos Principales", message);
+        ClienteSMTP.sendMail(correoDest, "Listar Datos Principales","Cliente: " + n.getPersona().getNombrecompleto() + "\n\r" + message);
         System.out.println(message);
     }
 
